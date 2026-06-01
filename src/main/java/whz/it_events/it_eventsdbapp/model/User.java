@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
+import whz.it_events.it_eventsdbapp.model.enums.Role;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity (name = "user")
 @Data
@@ -18,9 +20,24 @@ public class User {
     @Column(name = "last_name")
     String lastname;
     String email;
+    @Enumerated(EnumType.STRING)
     Role role;
     String password;
+    @Column(name="registration_date")
     LocalDateTime registrationDate;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    List<Participant> participants;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    List<Jury> juries;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    List<Mentor> mentors;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    List<Visitor> visitors;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    List<Organisator> organisators;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    List<Member> members;
 
     public User(String name, String lastname, String email, Role role, String password) {
         this.name = name;
