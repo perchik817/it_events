@@ -1,16 +1,16 @@
 package whz.it_events.it_eventsdbapp.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
 @Entity(name = "location")
-@Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class Location {
     @Id

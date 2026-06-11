@@ -1,15 +1,16 @@
 package whz.it_events.it_eventsdbapp.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import whz.it_events.it_eventsdbapp.model.enums.SessionType;
 
 import java.time.LocalDateTime;
 
 @Entity(name="session")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Session {
     @Id
@@ -34,8 +35,10 @@ public class Session {
                    Event event, SessionType sessionType, int capacity) {
         this.titel = titel;
         this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        if(startDate.isBefore(endDate) && !startDate.isBefore(LocalDateTime.now())) {
+            this.startDate = startDate;
+            this.endDate = endDate;
+        }
         this.room = room;
         this.event = event;
         this.sessionType = sessionType;

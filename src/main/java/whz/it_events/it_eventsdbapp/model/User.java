@@ -1,8 +1,7 @@
 package whz.it_events.it_eventsdbapp.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import whz.it_events.it_eventsdbapp.model.enums.Role;
 
@@ -10,7 +9,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity (name = "user")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @FieldDefaults (level = AccessLevel.PRIVATE)
 public class User {
     @Id
