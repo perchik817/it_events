@@ -1,9 +1,6 @@
 package whz.it_events.it_eventsdbapp.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity(name = "submission_team")
 public class SubmissionTeam extends Submission{

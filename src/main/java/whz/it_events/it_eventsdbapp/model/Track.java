@@ -22,7 +22,7 @@ public class Track {
     @JoinColumn(name = "event_id")
     Event event;
     String description;
-    @Column(name = "deadline_date")
+    @Column(name = "deadline_time")
     LocalDateTime deadlineDate;
 
     @OneToMany(mappedBy = "track", cascade = CascadeType.ALL)

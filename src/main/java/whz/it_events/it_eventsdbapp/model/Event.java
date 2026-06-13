@@ -26,7 +26,7 @@ public class Event {
     @ManyToOne
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     Location location;
-    @Enumerated (EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     Status status;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)

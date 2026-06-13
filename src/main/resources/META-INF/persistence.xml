@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
+
+    <persistence-unit name="itEventsPU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <class>whz.it_events.it_eventsdbapp.model.User</class>
+        <class>whz.it_events.it_eventsdbapp.model.Event</class>
+        <class>whz.it_events.it_eventsdbapp.model.Location</class>
+        <class>whz.it_events.it_eventsdbapp.model.Track</class>
+        <class>whz.it_events.it_eventsdbapp.model.Session</class>
+        <class>whz.it_events.it_eventsdbapp.model.Participant</class>
+        <class>whz.it_events.it_eventsdbapp.model.Visitor</class>
+        <class>whz.it_events.it_eventsdbapp.model.Team</class>
+        <class>whz.it_events.it_eventsdbapp.model.Member</class>
+        <class>whz.it_events.it_eventsdbapp.model.Submission</class>
+        <class>whz.it_events.it_eventsdbapp.model.SubmissionTeam</class>
+        <class>whz.it_events.it_eventsdbapp.model.Score</class>
+        <class>whz.it_events.it_eventsdbapp.model.Sponsor</class>
+        <class>whz.it_events.it_eventsdbapp.model.EventSponsor</class>
+        <class>whz.it_events.it_eventsdbapp.model.Speaker</class>
+        <class>whz.it_events.it_eventsdbapp.model.SessionSpeaker</class>
+        <class>whz.it_events.it_eventsdbapp.model.Organisator</class>
+        <class>whz.it_events.it_eventsdbapp.model.Mentor</class>
+        <class>whz.it_events.it_eventsdbapp.model.Jury</class>
+        <class>whz.it_events.it_eventsdbapp.model.Preis</class>
+        <class>whz.it_events.it_eventsdbapp.model.PreisSponsor</class>
+
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver"
+                      value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+            <!-- Замени на свои параметры -->
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:sqlserver://LILEVIL:1433;databaseName=itEventsDB;encrypt=true;trustServerCertificate=true"/>
+            <property name="jakarta.persistence.jdbc.user"     value="it_events_admin"/>
+            <property name="jakarta.persistence.jdbc.password" value="superDB"/>
+
+            <property name="hibernate.dialect"       value="org.hibernate.dialect.SQLServerDialect"/>
+            <property name="hibernate.hbm2ddl.auto"  value="validate"/>
+            <property name="hibernate.show_sql"       value="true"/>
+            <property name="hibernate.format_sql"     value="true"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>

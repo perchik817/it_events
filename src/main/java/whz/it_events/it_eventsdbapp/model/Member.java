@@ -20,4 +20,7 @@ public class Member {
 
     @Column(name = "team_role")
     String teamRole;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    User user;
 }

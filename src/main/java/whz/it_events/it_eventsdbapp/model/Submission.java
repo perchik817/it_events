@@ -13,6 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Submission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
