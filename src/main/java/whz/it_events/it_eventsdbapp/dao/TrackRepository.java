@@ -7,7 +7,7 @@ import whz.it_events.it_eventsdbapp.model.Track;
 import java.util.List;
 
 public class TrackRepository extends AbstractRepository<Track, Long> {
-    protected TrackRepository(EntityManager entityManager, Class<Track> entityClass) {
+    public TrackRepository(EntityManager entityManager, Class<Track> entityClass) {
         super(entityManager, entityClass);
     }
 

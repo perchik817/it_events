@@ -8,8 +8,28 @@ import whz.it_events.it_eventsdbapp.model.enums.Status;
 import java.util.List;
 
 public class EventRepository extends AbstractRepository<Event, Long> {
-    protected EventRepository(EntityManager entityManager, Class<Event> entityClass) {
+    public EventRepository(EntityManager entityManager, Class<Event> entityClass) {
         super(entityManager, entityClass);
+    }
+
+    public List<Event> findAllOrderedByStartDate() {
+        return entityManager
+                .createQuery("select e from event e order by e.startDate asc", Event.class)
+                .getResultList();
+    }
+
+    public List<Event> findRegisteredByUserId(Long userId) {
+        return entityManager
+                .createQuery("""
+                        select distinct e
+                        from event e
+                        join e.tracks t
+                        join t.participants p
+                        where p.user.id = :userId
+                        order by e.startDate asc
+                        """, Event.class)
+                .setParameter("userId", userId)
+                .getResultList();
     }
 
     public List<Event> findByStatus(Status status){
@@ -31,5 +51,4 @@ public class EventRepository extends AbstractRepository<Event, Long> {
                 .setParameter("kw", "%" + keyword + "%")
                 .getResultList();
     }
-
 }

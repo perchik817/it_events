@@ -7,7 +7,7 @@ import whz.it_events.it_eventsdbapp.model.User;
 import java.util.Optional;
 
 public class UserRepository extends AbstractRepository<User, Long> {
-    protected UserRepository(EntityManager entityManager, Class<User> entityClass) {
+    public UserRepository(EntityManager entityManager, Class<User> entityClass) {
         super(entityManager, entityClass);
     }
 
@@ -19,8 +19,8 @@ public class UserRepository extends AbstractRepository<User, Long> {
     }
 
     public boolean existsByEmail(String email){
-        Integer count = entityManager
-                .createQuery("select count(u) from user u where u.email=:email", Integer.class)
+        Long count = entityManager
+                .createQuery("select count(u) from user u where u.email=:email", Long.class)
                 .setParameter("email", email)
                 .getSingleResult();
         return count > 0;

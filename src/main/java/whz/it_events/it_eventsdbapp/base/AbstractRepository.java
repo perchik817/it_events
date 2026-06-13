@@ -43,8 +43,9 @@ public abstract class AbstractRepository<T, ID> implements BaseRepository<T, ID>
 
     @Override
     public List<T> findAll() {
+        String entityName = entityManager.getMetamodel().entity(entityClass).getName();
         return entityManager.createQuery(
-                "select * from " + entityClass.getSimpleName() + " e",
+                "select e from " + entityName + " e",
                 entityClass
         ).getResultList();
     }
