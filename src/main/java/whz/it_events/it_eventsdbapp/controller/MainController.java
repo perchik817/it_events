@@ -16,6 +16,14 @@ public class MainController {
     @FXML private Tab submissionTab;
     @FXML private Tab scoreTab;
     @FXML private Tab preisTab;
+    @FXML private Tab participantTab;
+    @FXML private Tab memberTab;
+    @FXML private Tab juryTab;
+    @FXML private Tab mentorTab;
+    @FXML private Tab organisatorTab;
+    @FXML private Tab eventSponsorTab;
+    @FXML private Tab visitorTab;
+    @FXML private Tab preisSponsorTab;
     @FXML private Tab sponsorTab;
     @FXML private Tab locationTab;
     @FXML private Tab speakerTab;
@@ -23,17 +31,25 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        loadInto(eventTab,      "/whz/it_events/it_eventsdbapp/event-view.fxml");
-        loadInto(trackTab,      "/whz/it_events/it_eventsdbapp/track-view.fxml");
-        loadInto(teamTab,       "/whz/it_events/it_eventsdbapp/team-view.fxml");
-        loadInto(sessionTab,    "/whz/it_events/it_eventsdbapp/session-view.fxml");
-        loadInto(submissionTab, "/whz/it_events/it_eventsdbapp/submission-view.fxml");
-        loadInto(scoreTab,      "/whz/it_events/it_eventsdbapp/score-view.fxml");
-        loadInto(preisTab,      "/whz/it_events/it_eventsdbapp/preis-view.fxml");
-        loadInto(sponsorTab,    "/whz/it_events/it_eventsdbapp/sponsor-view.fxml");
-        loadInto(locationTab,   "/whz/it_events/it_eventsdbapp/location-view.fxml");
-        loadInto(speakerTab,    "/whz/it_events/it_eventsdbapp/speaker-view.fxml");
-        loadInto(userTab,       "/whz/it_events/it_eventsdbapp/user-view.fxml");
+        loadInto(eventTab,         "/whz/it_events/it_eventsdbapp/event-view.fxml");
+        loadInto(trackTab,         "/whz/it_events/it_eventsdbapp/track-view.fxml");
+        loadInto(teamTab,          "/whz/it_events/it_eventsdbapp/team-view.fxml");
+        loadInto(sessionTab,       "/whz/it_events/it_eventsdbapp/session-view.fxml");
+        loadInto(submissionTab,    "/whz/it_events/it_eventsdbapp/submission-view.fxml");
+        loadInto(scoreTab,         "/whz/it_events/it_eventsdbapp/score-view.fxml");
+        loadInto(preisTab,         "/whz/it_events/it_eventsdbapp/preis-view.fxml");
+        loadInto(participantTab,   "/whz/it_events/it_eventsdbapp/participant-view.fxml");
+        loadInto(memberTab,        "/whz/it_events/it_eventsdbapp/member-view.fxml");
+        loadInto(juryTab,          "/whz/it_events/it_eventsdbapp/jury-view.fxml");
+        loadInto(mentorTab,        "/whz/it_events/it_eventsdbapp/mentor-view.fxml");
+        loadInto(organisatorTab,   "/whz/it_events/it_eventsdbapp/organisator-view.fxml");
+        loadInto(eventSponsorTab,  "/whz/it_events/it_eventsdbapp/event-sponsor-view.fxml");
+        loadInto(visitorTab,       "/whz/it_events/it_eventsdbapp/visitor-view.fxml");
+        loadInto(preisSponsorTab,  "/whz/it_events/it_eventsdbapp/preis-sponsor-view.fxml");
+        loadInto(sponsorTab,       "/whz/it_events/it_eventsdbapp/sponsor-view.fxml");
+        loadInto(locationTab,      "/whz/it_events/it_eventsdbapp/location-view.fxml");
+        loadInto(speakerTab,       "/whz/it_events/it_eventsdbapp/speaker-view.fxml");
+        loadInto(userTab,          "/whz/it_events/it_eventsdbapp/user-view.fxml");
     }
 
     private void loadInto(Tab tab, String fxmlPath) {

@@ -14,8 +14,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
 import whz.it_events.it_eventsdbapp.config.JpaUtil;
+import whz.it_events.it_eventsdbapp.dao.JuryRepository;
 import whz.it_events.it_eventsdbapp.dao.ScoreRepository;
 import whz.it_events.it_eventsdbapp.dao.SubmissionRepository;
+import whz.it_events.it_eventsdbapp.model.Jury;
 import whz.it_events.it_eventsdbapp.model.Score;
 import whz.it_events.it_eventsdbapp.model.Submission;
 
@@ -26,12 +28,14 @@ public class ScoreController {
     @FXML private TableView<Score> scoreTable;
     @FXML private TableColumn<Score, Long> colId;
     @FXML private TableColumn<Score, String> colSubmission;
+    @FXML private TableColumn<Score, String> colJury;
     @FXML private TableColumn<Score, String> colCriteria;
     @FXML private TableColumn<Score, Integer> colValue;
     @FXML private TableColumn<Score, String> colComment;
     @FXML private TableColumn<Score, String> colDate;
 
     @FXML private ComboBox<Submission> submissionComboBox;
+    @FXML private ComboBox<Jury> juryComboBox;
     @FXML private TextField criteriaField;
     @FXML private TextField valueField;
     @FXML private TextArea commentArea;
@@ -40,6 +44,8 @@ public class ScoreController {
     private EntityManager entityManager;
     private ScoreRepository scoreRepository;
     private SubmissionRepository submissionRepository;
+    private JuryRepository juryRepository;
+
     private final ObservableList<Score> data = FXCollections.observableArrayList();
     private Score current;
 
@@ -48,6 +54,7 @@ public class ScoreController {
         entityManager = JpaUtil.getEntityManager();
         scoreRepository = new ScoreRepository(entityManager, Score.class);
         submissionRepository = new SubmissionRepository(entityManager, Submission.class);
+        juryRepository = new JuryRepository(entityManager, Jury.class);
 
         colId.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getId()));
         colCriteria.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getCriteria()));
@@ -57,6 +64,12 @@ public class ScoreController {
             Submission s = c.getValue().getSubmission();
             return new SimpleStringProperty(s != null ? s.getTitel() : "");
         });
+        colJury.setCellValueFactory(c -> {
+            Jury j = c.getValue().getJury();
+            if (j == null) return new SimpleStringProperty("");
+            return new SimpleStringProperty(j.getUser() != null ?
+                    j.getUser().getName() + " " + j.getUser().getLastname() : "Jury #" + j.getId());
+        });
         colDate.setCellValueFactory(c -> {
             LocalDateTime d = c.getValue().getReviewDate();
             return new SimpleStringProperty(d != null ? d.toLocalDate().toString() : "");
@@ -64,14 +77,20 @@ public class ScoreController {
 
         scoreTable.setItems(data);
 
-        ObservableList<Submission> submissions = FXCollections.observableArrayList(submissionRepository.findAll());
-        submissionComboBox.setItems(submissions);
+        submissionComboBox.setItems(FXCollections.observableArrayList(submissionRepository.findAll()));
         submissionComboBox.setConverter(new StringConverter<Submission>() {
             @Override public String toString(Submission s) { return s != null ? s.getTitel() : ""; }
-            @Override public Submission fromString(String str) {
-                return submissionComboBox.getItems().stream()
-                        .filter(s -> s.getTitel().equals(str)).findFirst().orElse(null);
+            @Override public Submission fromString(String str) { return null; }
+        });
+
+        juryComboBox.setItems(FXCollections.observableArrayList(juryRepository.findAll()));
+        juryComboBox.setConverter(new StringConverter<Jury>() {
+            @Override public String toString(Jury j) {
+                if (j == null) return "";
+                return j.getUser() != null ?
+                        j.getUser().getName() + " " + j.getUser().getLastname() : "Jury #" + j.getId();
             }
+            @Override public Jury fromString(String str) { return null; }
         });
 
         scoreTable.getSelectionModel().selectedItemProperty().addListener(
@@ -86,6 +105,7 @@ public class ScoreController {
         current = s;
         if (s == null) { clearForm(); return; }
         submissionComboBox.setValue(s.getSubmission());
+        juryComboBox.setValue(s.getJury());
         criteriaField.setText(s.getCriteria());
         valueField.setText(s.getScoreValue() != null ? s.getScoreValue().toString() : "");
         commentArea.setText(s.getComment());
@@ -94,7 +114,10 @@ public class ScoreController {
 
     private void clearForm() {
         submissionComboBox.setValue(null);
-        criteriaField.clear(); valueField.clear(); commentArea.clear();
+        juryComboBox.setValue(null);
+        criteriaField.clear();
+        valueField.clear();
+        commentArea.clear();
         statusLabel.setText("");
     }
 
@@ -114,13 +137,16 @@ public class ScoreController {
         catch (NumberFormatException e) { statusLabel.setText("Wert muss eine Zahl (0-10) sein."); return; }
 
         boolean isNew = (current == null);
-        Score score = isNew ? new Score(sub, criteria, value) : current;
+        Score score = isNew
+                ? new Score(criteria, value, commentArea.getText(), LocalDateTime.now(), sub, juryComboBox.getValue())
+                : current;
         if (!isNew) {
             score.setSubmission(sub);
+            score.setJury(juryComboBox.getValue());
             score.setCriteria(criteria);
             score.setScoreValue(value);
+            score.setComment(commentArea.getText());
         }
-        score.setComment(commentArea.getText());
 
         try { scoreRepository.save(score); statusLabel.setText("Gespeichert."); load(); onNew(); }
         catch (Exception e) { statusLabel.setText("Fehler: " + e.getMessage()); }

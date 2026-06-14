@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.BorderPane?>
-
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="whz.it_events.it_eventsdbapp.controller.MainController"
-            prefWidth="1100" prefHeight="650">
+            prefWidth="1200" prefHeight="650">
     <center>
         <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE">
             <tabs>
-                <Tab text="Events"      fx:id="eventTab"/>
-                <Tab text="Tracks"      fx:id="trackTab"/>
-                <Tab text="Teams"       fx:id="teamTab"/>
-                <Tab text="Sessions"    fx:id="sessionTab"/>
-                <Tab text="Submissions" fx:id="submissionTab"/>
-                <Tab text="Scores"      fx:id="scoreTab"/>
-                <Tab text="Preise"      fx:id="preisTab"/>
-                <Tab text="Sponsoren"   fx:id="sponsorTab"/>
-                <Tab text="Locations"   fx:id="locationTab"/>
-                <Tab text="Speakers"    fx:id="speakerTab"/>
-                <Tab text="Users"       fx:id="userTab"/>
+                <Tab text="Events"         fx:id="eventTab"/>
+                <Tab text="Tracks"         fx:id="trackTab"/>
+                <Tab text="Teams"          fx:id="teamTab"/>
+                <Tab text="Sessions"       fx:id="sessionTab"/>
+                <Tab text="Submissions"    fx:id="submissionTab"/>
+                <Tab text="Scores"         fx:id="scoreTab"/>
+                <Tab text="Preise"         fx:id="preisTab"/>
+                <Tab text="Participants"   fx:id="participantTab"/>
+                <Tab text="Members"        fx:id="memberTab"/>
+                <Tab text="Jury"           fx:id="juryTab"/>
+                <Tab text="Mentoren"       fx:id="mentorTab"/>
+                <Tab text="Organisatoren"  fx:id="organisatorTab"/>
+                <Tab text="EventSponsoren" fx:id="eventSponsorTab"/>
+                <Tab text="Visitors"       fx:id="visitorTab"/>
+                <Tab text="PreisSponsoren" fx:id="preisSponsorTab"/>
+                <Tab text="Sponsoren"      fx:id="sponsorTab"/>
+                <Tab text="Locations"      fx:id="locationTab"/>
+                <Tab text="Speakers"       fx:id="speakerTab"/>
+                <Tab text="Users"          fx:id="userTab"/>
             </tabs>
         </TabPane>
     </center>

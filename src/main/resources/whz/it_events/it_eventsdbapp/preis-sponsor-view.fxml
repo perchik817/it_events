@@ -1,49 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="whz.it_events.it_eventsdbapp.controller.SubmissionController"
-            prefWidth="1000" prefHeight="550">
+            fx:controller="whz.it_events.it_eventsdbapp.controller.PreisSponsorController"
+            prefWidth="900" prefHeight="500">
     <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
     <center>
         <VBox styleClass="card" spacing="0" BorderPane.alignment="CENTER">
             <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
             <BorderPane.margin><Insets right="12"/></BorderPane.margin>
-            <TableView fx:id="submissionTable" VBox.vgrow="ALWAYS">
+            <TableView fx:id="preisSponsorTable" VBox.vgrow="ALWAYS">
                 <columns>
                     <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
-                    <TableColumn fx:id="colTitel" text="Titel" prefWidth="200"/>
-                    <TableColumn fx:id="colStatus" text="Status" prefWidth="120"/>
-                    <TableColumn fx:id="colType" text="Typ" prefWidth="100"/>
-                    <TableColumn fx:id="colTime" text="Eingereicht" prefWidth="130"/>
-                    <TableColumn fx:id="colComment" text="Kommentar" prefWidth="200"/>
+                    <TableColumn fx:id="colTrack" text="Track" prefWidth="180"/>
+                    <TableColumn fx:id="colPreis" text="Preis" prefWidth="180"/>
+                    <TableColumn fx:id="colSponsor" text="Sponsor" prefWidth="180"/>
                 </columns>
             </TableView>
         </VBox>
     </center>
     <right>
-        <VBox styleClass="card" spacing="12" prefWidth="320" BorderPane.alignment="TOP_CENTER">
+        <VBox styleClass="card" spacing="12" prefWidth="300" BorderPane.alignment="TOP_CENTER">
             <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-            <Label text="Submission Details" styleClass="title-label"/>
-            <Label text="Titel" styleClass="field-label"/>
-            <TextField fx:id="titelField"/>
-            <Label text="Kommentar" styleClass="field-label"/>
-            <TextArea fx:id="commentArea" prefRowCount="3" wrapText="true"/>
-            <Label text="Status" styleClass="field-label"/>
-            <ComboBox fx:id="statusComboBox" maxWidth="Infinity"/>
-            <Label text="Teilnahme-Typ" styleClass="field-label"/>
-            <ComboBox fx:id="typeComboBox" maxWidth="Infinity"/>
+            <Label text="PreisSponsor Details" styleClass="title-label"/>
+            <Label text="Track" styleClass="field-label"/>
+            <ComboBox fx:id="trackComboBox" maxWidth="Infinity"/>
+            <Label text="Preis" styleClass="field-label"/>
+            <ComboBox fx:id="preisComboBox" maxWidth="Infinity"/>
+            <Label text="Sponsor" styleClass="field-label"/>
+            <ComboBox fx:id="sponsorComboBox" maxWidth="Infinity"/>
             <HBox spacing="10">
                 <Button text="Neu" styleClass="button-secondary" onAction="#onNew"/>
                 <Button text="Speichern" styleClass="button-primary" onAction="#onSave"/>

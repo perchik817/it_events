@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import whz.it_events.it_eventsdbapp.model.enums.ParticipationType;
+import whz.it_events.it_eventsdbapp.model.enums.ParticipationTypeConverter;
 import whz.it_events.it_eventsdbapp.model.enums.SubmissionStatus;
 import whz.it_events.it_eventsdbapp.model.enums.SubmissionStatusConverter;
 
@@ -24,10 +25,18 @@ public class Submission {
     String comment;
     @Column(name = "submission_time")
     LocalDateTime submissionTime;
-    @Enumerated(EnumType.STRING)
+//    это я закомитила
+//    @Enumerated(EnumType.STRING)
+//    SubmissionStatus status;
+//    @Column(name = "participation_type")
+//    @Enumerated(EnumType.STRING)
+//    ParticipationType participationType;
+//    это я добавила
+    @Convert(converter = SubmissionStatusConverter.class)
     SubmissionStatus status;
+
     @Column(name = "participation_type")
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = ParticipationTypeConverter.class)
     ParticipationType participationType;
 
 //    @OneToMany(mappedBy = "submission", cascade = CascadeType.ALL)

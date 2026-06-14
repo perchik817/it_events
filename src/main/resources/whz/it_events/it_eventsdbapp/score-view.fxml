@@ -14,7 +14,7 @@
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="whz.it_events.it_eventsdbapp.controller.ScoreController"
-            prefWidth="900" prefHeight="500">
+            prefWidth="1000" prefHeight="550">
     <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
     <center>
         <VBox styleClass="card" spacing="0" BorderPane.alignment="CENTER">
@@ -23,11 +23,12 @@
             <TableView fx:id="scoreTable" VBox.vgrow="ALWAYS">
                 <columns>
                     <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
-                    <TableColumn fx:id="colSubmission" text="Submission" prefWidth="200"/>
-                    <TableColumn fx:id="colCriteria" text="Kriterien" prefWidth="150"/>
-                    <TableColumn fx:id="colValue" text="Wert" prefWidth="80"/>
-                    <TableColumn fx:id="colComment" text="Kommentar" prefWidth="200"/>
-                    <TableColumn fx:id="colDate" text="Datum" prefWidth="120"/>
+                    <TableColumn fx:id="colSubmission" text="Submission" prefWidth="180"/>
+                    <TableColumn fx:id="colJury" text="Jury" prefWidth="150"/>
+                    <TableColumn fx:id="colCriteria" text="Kriterien" prefWidth="130"/>
+                    <TableColumn fx:id="colValue" text="Wert" prefWidth="70"/>
+                    <TableColumn fx:id="colComment" text="Kommentar" prefWidth="180"/>
+                    <TableColumn fx:id="colDate" text="Datum" prefWidth="100"/>
                 </columns>
             </TableView>
         </VBox>
@@ -38,6 +39,8 @@
             <Label text="Score Details" styleClass="title-label"/>
             <Label text="Submission" styleClass="field-label"/>
             <ComboBox fx:id="submissionComboBox" maxWidth="Infinity"/>
+            <Label text="Jury" styleClass="field-label"/>
+            <ComboBox fx:id="juryComboBox" maxWidth="Infinity"/>
             <Label text="Kriterien" styleClass="field-label"/>
             <TextField fx:id="criteriaField" promptText="z.B. Innovation, Design"/>
             <Label text="Wert (0-10)" styleClass="field-label"/>

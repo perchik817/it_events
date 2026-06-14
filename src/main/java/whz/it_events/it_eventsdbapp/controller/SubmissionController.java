@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import whz.it_events.it_eventsdbapp.config.JpaUtil;
 import whz.it_events.it_eventsdbapp.dao.SubmissionRepository;
 import whz.it_events.it_eventsdbapp.model.Submission;
+import whz.it_events.it_eventsdbapp.model.enums.ParticipationType;
 import whz.it_events.it_eventsdbapp.model.enums.SubmissionStatus;
 
 import java.time.LocalDateTime;
@@ -32,7 +33,7 @@ public class SubmissionController {
     @FXML private TextField titelField;
     @FXML private TextArea commentArea;
     @FXML private ComboBox<SubmissionStatus> statusComboBox;
-    @FXML private TextField typeField;
+    @FXML private ComboBox<ParticipationType> typeComboBox;
     @FXML private Label statusLabel;
 
     private EntityManager entityManager;
@@ -48,7 +49,10 @@ public class SubmissionController {
         colId.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getId()));
         colTitel.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTitel()));
         colComment.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getComment()));
-        colType.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getParticipationType()));
+        colType.setCellValueFactory(c -> {
+            ParticipationType t = c.getValue().getParticipationType();
+            return new SimpleStringProperty(t != null ? t.toString() : "");
+        });
         colStatus.setCellValueFactory(c -> {
             SubmissionStatus s = c.getValue().getStatus();
             return new SimpleStringProperty(s != null ? s.toString() : "");
@@ -60,6 +64,7 @@ public class SubmissionController {
 
         submissionTable.setItems(data);
         statusComboBox.setItems(FXCollections.observableArrayList(SubmissionStatus.values()));
+        typeComboBox.setItems(FXCollections.observableArrayList(ParticipationType.values()));
 
         submissionTable.getSelectionModel().selectedItemProperty().addListener(
                 (obs, o, n) -> showInForm(n));
@@ -75,13 +80,15 @@ public class SubmissionController {
         titelField.setText(s.getTitel());
         commentArea.setText(s.getComment());
         statusComboBox.setValue(s.getStatus());
-        typeField.setText(s.getParticipationType());
+        typeComboBox.setValue(s.getParticipationType());
         statusLabel.setText("");
     }
 
     private void clearForm() {
-        titelField.clear(); commentArea.clear();
-        statusComboBox.setValue(null); typeField.clear();
+        titelField.clear();
+        commentArea.clear();
+        statusComboBox.setValue(null);
+        typeComboBox.setValue(null);
         statusLabel.setText("");
     }
 
@@ -93,14 +100,22 @@ public class SubmissionController {
 
     @FXML private void onSave() {
         String titel = titelField.getText();
-        if (titel == null || titel.isBlank()) { statusLabel.setText("Titel darf nicht leer sein."); return; }
+        if (titel == null || titel.isBlank()) {
+            statusLabel.setText("Titel darf nicht leer sein.");
+            return;
+        }
+        ParticipationType type = typeComboBox.getValue();
+        if (type == null) {
+            statusLabel.setText("Bitte Teilnahme-Typ auswählen.");
+            return;
+        }
 
         boolean isNew = (current == null);
-        Submission s = isNew ? new Submission(titel, commentArea.getText(), typeField.getText()) : current;
+        Submission s = isNew ? new Submission(titel, commentArea.getText(), type) : current;
         if (!isNew) {
             s.setTitel(titel);
             s.setComment(commentArea.getText());
-            s.setParticipationType(typeField.getText());
+            s.setParticipationType(type);
         }
         s.setStatus(statusComboBox.getValue());
 
