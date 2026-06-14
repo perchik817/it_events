@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="whz.it_events.it_eventsdbapp.controller.TrackController"
+            prefWidth="950" prefHeight="500">
+
+    <padding>
+        <Insets top="16" right="16" bottom="16" left="16"/>
+    </padding>
+
+    <!-- left: table with all tracks -->
+    <center>
+        <VBox styleClass="card" spacing="0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <BorderPane.margin>
+                <Insets right="12"/>
+            </BorderPane.margin>
+            <TableView fx:id="trackTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="colName" text="Name" prefWidth="150"/>
+                    <TableColumn fx:id="colEvent" text="Event" prefWidth="150"/>
+                    <TableColumn fx:id="colDeadline" text="Deadline" prefWidth="120"/>
+                    <TableColumn fx:id="colDescription" text="Beschreibung" prefWidth="250"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+
+    <!-- right: form for create/edit -->
+    <right>
+        <VBox styleClass="card" spacing="12" prefWidth="320" BorderPane.alignment="TOP_CENTER">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <Label text="Track Details" styleClass="title-label"/>
+
+            <Label text="Name" styleClass="field-label"/>
+            <TextField fx:id="nameField"/>
+
+            <Label text="Event" styleClass="field-label"/>
+            <ComboBox fx:id="eventComboBox" maxWidth="Infinity"/>
+
+            <Label text="Deadline" styleClass="field-label"/>
+            <DatePicker fx:id="deadlineDatePicker" maxWidth="Infinity"/>
+
+            <Label text="Beschreibung" styleClass="field-label"/>
+            <TextArea fx:id="descriptionArea" prefRowCount="5" wrapText="true"/>
+
+            <HBox spacing="10">
+                <Button fx:id="newButton" text="Neu" styleClass="button-secondary" onAction="#onNew"/>
+                <Button fx:id="saveButton" text="Speichern" styleClass="button-primary" onAction="#onSave"/>
+                <Button fx:id="deleteButton" text="Löschen" styleClass="button-danger" onAction="#onDelete"/>
+            </HBox>
+
+            <Label fx:id="statusLabel" wrapText="true" styleClass="status-label"/>
+        </VBox>
+    </right>
+</BorderPane>

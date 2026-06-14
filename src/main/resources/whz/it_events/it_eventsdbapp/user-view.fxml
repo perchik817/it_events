@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="whz.it_events.it_eventsdbapp.controller.UserController"
+            prefWidth="900" prefHeight="500">
+
+    <padding>
+        <Insets top="16" right="16" bottom="16" left="16"/>
+    </padding>
+
+    <!-- left: table with all users -->
+    <center>
+        <VBox styleClass="card" spacing="0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <BorderPane.margin>
+                <Insets right="12"/>
+            </BorderPane.margin>
+            <TableView fx:id="userTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="colName" text="Name" prefWidth="120"/>
+                    <TableColumn fx:id="colLastname" text="Nachname" prefWidth="120"/>
+                    <TableColumn fx:id="colEmail" text="Email" prefWidth="200"/>
+                    <TableColumn fx:id="colRole" text="Rolle" prefWidth="100"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+
+    <!-- right: form for create/edit -->
+    <right>
+        <VBox styleClass="card" spacing="12" prefWidth="320" BorderPane.alignment="TOP_CENTER">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <Label text="User Details" styleClass="title-label"/>
+
+            <Label text="Name" styleClass="field-label"/>
+            <TextField fx:id="nameField"/>
+
+            <Label text="Nachname" styleClass="field-label"/>
+            <TextField fx:id="lastnameField"/>
+
+            <Label text="Email" styleClass="field-label"/>
+            <TextField fx:id="emailField"/>
+
+            <Label text="Rolle" styleClass="field-label"/>
+            <ComboBox fx:id="roleComboBox" maxWidth="Infinity"/>
+
+            <Label text="Passwort" styleClass="field-label"/>
+            <PasswordField fx:id="passwordField"/>
+
+            <HBox spacing="10">
+                <Button fx:id="newButton" text="Neu" styleClass="button-secondary" onAction="#onNew"/>
+                <Button fx:id="saveButton" text="Speichern" styleClass="button-primary" onAction="#onSave"/>
+                <Button fx:id="deleteButton" text="Löschen" styleClass="button-danger" onAction="#onDelete"/>
+            </HBox>
+
+            <Label fx:id="statusLabel" wrapText="true" styleClass="status-label"/>
+        </VBox>
+    </right>
+</BorderPane>

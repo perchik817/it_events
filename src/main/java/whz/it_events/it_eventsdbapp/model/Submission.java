@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import whz.it_events.it_eventsdbapp.model.enums.SubmissionStatus;
+import whz.it_events.it_eventsdbapp.model.enums.SubmissionStatusConverter;
 
 import java.time.LocalDateTime;
 import java.util.List;

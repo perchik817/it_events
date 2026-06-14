@@ -8,7 +8,8 @@ import whz.it_events.it_eventsdbapp.model.enums.Role;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity (name = "user")
+@Entity(name = "appUser")
+@Table(name = "\"user\"")
 @Getter
 @Setter
 @NoArgsConstructor

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="whz.it_events.it_eventsdbapp.controller.SessionController"
+            prefWidth="1000" prefHeight="550">
+    <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+
+    <center>
+        <VBox styleClass="card" spacing="0" BorderPane.alignment="CENTER">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+            <BorderPane.margin><Insets right="12"/></BorderPane.margin>
+            <TableView fx:id="sessionTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="colTitel" text="Titel" prefWidth="160"/>
+                    <TableColumn fx:id="colEvent" text="Event" prefWidth="120"/>
+                    <TableColumn fx:id="colType" text="Typ" prefWidth="100"/>
+                    <TableColumn fx:id="colRoom" text="Raum" prefWidth="80"/>
+                    <TableColumn fx:id="colCapacity" text="Kapazität" prefWidth="80"/>
+                    <TableColumn fx:id="colStartDate" text="Start" prefWidth="100"/>
+                    <TableColumn fx:id="colEndDate" text="Ende" prefWidth="100"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+
+    <right>
+        <VBox styleClass="card" spacing="10" prefWidth="320" BorderPane.alignment="TOP_CENTER">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+            <Label text="Session Details" styleClass="title-label"/>
+
+            <Label text="Titel" styleClass="field-label"/>
+            <TextField fx:id="titelField"/>
+
+            <Label text="Event" styleClass="field-label"/>
+            <ComboBox fx:id="eventComboBox" maxWidth="Infinity"/>
+
+            <Label text="Typ" styleClass="field-label"/>
+            <ComboBox fx:id="typeComboBox" maxWidth="Infinity"/>
+
+            <Label text="Raum" styleClass="field-label"/>
+            <TextField fx:id="roomField"/>
+
+            <Label text="Kapazität" styleClass="field-label"/>
+            <TextField fx:id="capacityField" promptText="z.B. 50"/>
+
+            <Label text="Startdatum" styleClass="field-label"/>
+            <DatePicker fx:id="startDatePicker" maxWidth="Infinity"/>
+
+            <Label text="Enddatum" styleClass="field-label"/>
+            <DatePicker fx:id="endDatePicker" maxWidth="Infinity"/>
+
+            <HBox spacing="10">
+                <Button fx:id="newButton" text="Neu" styleClass="button-secondary" onAction="#onNew"/>
+                <Button fx:id="saveButton" text="Speichern" styleClass="button-primary" onAction="#onSave"/>
+                <Button fx:id="deleteButton" text="Löschen" styleClass="button-danger" onAction="#onDelete"/>
+            </HBox>
+
+            <Label fx:id="statusLabel" wrapText="true" styleClass="status-label"/>
+        </VBox>
+    </right>
+</BorderPane>
