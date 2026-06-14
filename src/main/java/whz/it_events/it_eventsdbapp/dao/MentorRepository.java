@@ -7,7 +7,7 @@ import whz.it_events.it_eventsdbapp.model.Mentor;
 import java.util.List;
 
 public class MentorRepository extends AbstractRepository<Mentor, Long> {
-    protected MentorRepository(EntityManager entityManager, Class<Mentor> entityClass) {
+    public MentorRepository(EntityManager entityManager, Class<Mentor> entityClass) {
         super(entityManager, entityClass);
     }
 

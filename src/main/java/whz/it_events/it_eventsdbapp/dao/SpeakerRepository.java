@@ -7,7 +7,7 @@ import whz.it_events.it_eventsdbapp.model.Speaker;
 import java.util.List;
 
 public class SpeakerRepository extends AbstractRepository<Speaker, Long> {
-    protected SpeakerRepository(EntityManager entityManager, Class<Speaker> entityClass) {
+    public SpeakerRepository(EntityManager entityManager, Class<Speaker> entityClass) {
         super(entityManager, entityClass);
     }
 

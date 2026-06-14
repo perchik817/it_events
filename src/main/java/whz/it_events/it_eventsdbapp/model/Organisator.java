@@ -9,7 +9,6 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Organisator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,4 +24,10 @@ public class Organisator {
 
     @Column(name = "work_area")
     String workArea;
+
+    public Organisator(User user, Event event, String workArea) {
+        this.user = user;
+        this.event = event;
+        this.workArea = workArea;
+    }
 }

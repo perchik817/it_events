@@ -8,7 +8,7 @@ import whz.it_events.it_eventsdbapp.model.enums.SessionType;
 import java.util.List;
 
 public class SessionRepository extends AbstractRepository<Session, Long> {
-    protected SessionRepository(EntityManager entityManager, Class<Session> entityClass) {
+    public SessionRepository(EntityManager entityManager, Class<Session> entityClass) {
         super(entityManager, entityClass);
     }
 

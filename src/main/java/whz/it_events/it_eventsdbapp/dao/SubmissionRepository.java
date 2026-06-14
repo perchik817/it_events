@@ -8,7 +8,7 @@ import whz.it_events.it_eventsdbapp.model.enums.SubmissionStatus;
 import java.util.List;
 
 public class SubmissionRepository extends AbstractRepository<Submission, Long> {
-    protected SubmissionRepository(EntityManager entityManager, Class<Submission> entityClass) {
+    public SubmissionRepository(EntityManager entityManager, Class<Submission> entityClass) {
         super(entityManager, entityClass);
     }
 

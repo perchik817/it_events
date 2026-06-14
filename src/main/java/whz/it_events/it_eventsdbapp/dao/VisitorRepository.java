@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class VisitorRepository extends AbstractRepository<Visitor, Long> {
-    protected VisitorRepository(EntityManager entityManager, Class<Visitor> entityClass) {
+    public VisitorRepository(EntityManager entityManager, Class<Visitor> entityClass) {
         super(entityManager, entityClass);
     }
 

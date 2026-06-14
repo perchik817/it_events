@@ -9,7 +9,6 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Sponsor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,4 +17,10 @@ public class Sponsor {
     String contact;
     @Column(name = "photo_url")
     String photoUrl;
+
+    public Sponsor(String name, String contact, String photoUrl) {
+        this.name = name;
+        this.contact = contact;
+        this.photoUrl = photoUrl;
+    }
 }

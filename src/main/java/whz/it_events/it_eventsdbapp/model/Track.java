@@ -12,7 +12,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@AllArgsConstructor
 public class Track {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,4 +35,16 @@ public class Track {
     @OneToMany(mappedBy = "track", cascade = CascadeType.ALL)
     List<PreisSponsor> preisSponsors;
 
+    public Track(String name, Event event, String description, LocalDateTime deadlineDate, List<Team> teams,
+                 List<Participant> participants, List<Mentor> mentors, List<Jury> juries, List<PreisSponsor> preisSponsors) {
+        this.name = name;
+        this.event = event;
+        this.description = description;
+        this.deadlineDate = deadlineDate;
+        this.teams = teams;
+        this.participants = participants;
+        this.mentors = mentors;
+        this.juries = juries;
+        this.preisSponsors = preisSponsors;
+    }
 }

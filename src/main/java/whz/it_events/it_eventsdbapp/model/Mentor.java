@@ -9,7 +9,6 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Mentor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,4 +24,10 @@ public class Mentor {
 
     @Column(name = "prof_area")
     String profArea;
+
+    public Mentor(User user, Track track, String profArea) {
+        this.user = user;
+        this.track = track;
+        this.profArea = profArea;
+    }
 }

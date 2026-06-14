@@ -7,7 +7,7 @@ import whz.it_events.it_eventsdbapp.model.Member;
 import java.util.List;
 
 public class MemberRepository extends AbstractRepository<Member, Long> {
-    protected MemberRepository(EntityManager entityManager, Class<Member> entityClass) {
+    public MemberRepository(EntityManager entityManager, Class<Member> entityClass) {
         super(entityManager, entityClass);
     }
 

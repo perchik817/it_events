@@ -24,12 +24,16 @@ public class Score {
     @ManyToOne
     @JoinColumn(name = "submission_id", referencedColumnName = "id")
     Submission submission;
+    @ManyToOne
+    @JoinColumn(name = "jury_id", referencedColumnName = "id")
+    Jury jury;
 
-    public Score(Submission submission, String criteria, Integer scoreValue) {
-        this.submission = submission;
+    public Score(String criteria, Integer scoreValue, String comment, LocalDateTime reviewDate, Submission submission, Jury jury) {
         this.criteria = criteria;
         this.scoreValue = scoreValue;
-        this.reviewDate = LocalDateTime.now();
+        this.comment = comment;
+        this.reviewDate = reviewDate;
+        this.submission = submission;
+        this.jury = jury;
     }
-
 }

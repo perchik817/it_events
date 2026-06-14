@@ -9,7 +9,6 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@AllArgsConstructor
 public class Visitor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +21,9 @@ public class Visitor {
     @ManyToOne
     @JoinColumn(name = "session_id")
     Session session;
+
+    public Visitor(User user, Session session) {
+        this.user = user;
+        this.session = session;
+    }
 }

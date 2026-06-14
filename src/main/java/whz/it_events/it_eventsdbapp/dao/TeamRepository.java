@@ -7,7 +7,7 @@ import whz.it_events.it_eventsdbapp.model.Team;
 import java.util.List;
 
 public class TeamRepository extends AbstractRepository<Team, Long> {
-    protected TeamRepository(EntityManager entityManager, Class<Team> entityClass) {
+    public TeamRepository(EntityManager entityManager, Class<Team> entityClass) {
         super(entityManager, entityClass);
     }
 

@@ -23,4 +23,10 @@ public class Member {
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
+
+    public Member(Team team, String teamRole, User user) {
+        this.team = team;
+        this.teamRole = teamRole;
+        this.user = user;
+    }
 }

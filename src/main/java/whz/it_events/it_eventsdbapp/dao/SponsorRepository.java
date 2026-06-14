@@ -7,7 +7,7 @@ import whz.it_events.it_eventsdbapp.model.Sponsor;
 import java.util.List;
 
 public class SponsorRepository extends AbstractRepository<Sponsor, Long> {
-    protected SponsorRepository(EntityManager entityManager, Class<Sponsor> entityClass) {
+    public SponsorRepository(EntityManager entityManager, Class<Sponsor> entityClass) {
         super(entityManager, entityClass);
     }
 

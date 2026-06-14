@@ -7,7 +7,7 @@ import whz.it_events.it_eventsdbapp.model.Score;
 import java.util.List;
 
 public class ScoreRepository extends AbstractRepository<Score, Long> {
-    protected ScoreRepository(EntityManager entityManager, Class<Score> entityClass) {
+    public ScoreRepository(EntityManager entityManager, Class<Score> entityClass) {
         super(entityManager, entityClass);
     }
 

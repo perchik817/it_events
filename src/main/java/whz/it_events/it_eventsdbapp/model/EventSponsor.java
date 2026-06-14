@@ -8,7 +8,6 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class EventSponsor {
     @Id
@@ -24,5 +23,11 @@ public class EventSponsor {
     @ManyToOne
     @JoinColumn(name = "sponsor_id", referencedColumnName = "id")
     Sponsor sponsor;
+
+    public EventSponsor(String fee, Event event, Sponsor sponsor) {
+        this.fee = fee;
+        this.event = event;
+        this.sponsor = sponsor;
+    }
 }
 

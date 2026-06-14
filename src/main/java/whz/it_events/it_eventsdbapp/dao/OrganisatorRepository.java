@@ -7,7 +7,7 @@ import whz.it_events.it_eventsdbapp.model.Organisator;
 import java.util.List;
 
 public class OrganisatorRepository extends AbstractRepository<Organisator, Long> {
-    protected OrganisatorRepository(EntityManager entityManager, Class<Organisator> entityClass) {
+    public OrganisatorRepository(EntityManager entityManager, Class<Organisator> entityClass) {
         super(entityManager, entityClass);
     }
 

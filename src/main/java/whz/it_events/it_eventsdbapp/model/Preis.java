@@ -10,7 +10,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Preis {
     @Id
@@ -23,4 +22,10 @@ public class Preis {
     @OneToMany(mappedBy = "preis", cascade = CascadeType.ALL)
     List<PreisSponsor> preisSponsors;
 
+    public Preis(String name, String description, String preisCategory, List<PreisSponsor> preisSponsors) {
+        this.name = name;
+        this.description = description;
+        this.preisCategory = preisCategory;
+        this.preisSponsors = preisSponsors;
+    }
 }

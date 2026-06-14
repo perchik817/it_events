@@ -9,7 +9,6 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Participant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +25,10 @@ public class Participant {
     @OneToOne
     @JoinColumn(name = "submission_id")
     Submission submission;
+
+    public Participant(User user, Track track, Submission submission) {
+        this.user = user;
+        this.track = track;
+        this.submission = submission;
+    }
 }

@@ -11,7 +11,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +21,11 @@ public class Location {
     String address;
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
     List<Event> events;
+
+    public Location(String locationName, String stadt, String address, List<Event> events) {
+        this.locationName = locationName;
+        this.stadt = stadt;
+        this.address = address;
+        this.events = events;
+    }
 }

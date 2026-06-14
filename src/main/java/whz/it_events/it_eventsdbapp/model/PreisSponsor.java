@@ -8,7 +8,6 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PreisSponsor {
     @Id
@@ -27,4 +26,9 @@ public class PreisSponsor {
     @JoinColumn(name = "sponsor_id", referencedColumnName = "id")
     Sponsor sponsor;
 
+    public PreisSponsor(Track track, Preis preis, Sponsor sponsor) {
+        this.track = track;
+        this.preis = preis;
+        this.sponsor = sponsor;
+    }
 }

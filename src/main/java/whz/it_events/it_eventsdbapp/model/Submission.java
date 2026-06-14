@@ -3,6 +3,7 @@ package whz.it_events.it_eventsdbapp.model;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import whz.it_events.it_eventsdbapp.model.enums.ParticipationType;
 import whz.it_events.it_eventsdbapp.model.enums.SubmissionStatus;
 import whz.it_events.it_eventsdbapp.model.enums.SubmissionStatusConverter;
 
@@ -26,7 +27,8 @@ public class Submission {
     @Enumerated(EnumType.STRING)
     SubmissionStatus status;
     @Column(name = "participation_type")
-    String participationType;
+    @Enumerated(EnumType.STRING)
+    ParticipationType participationType;
 
 //    @OneToMany(mappedBy = "submission", cascade = CascadeType.ALL)
 //    List<SubmissionTeam> submissionTeams;
@@ -35,7 +37,7 @@ public class Submission {
     @OneToMany(mappedBy = "submission", cascade = CascadeType.ALL)
     List<Participant> participants;
 
-    public Submission(String titel, String comment, String participationType) {
+    public Submission(String titel, String comment, ParticipationType participationType) {
         this.titel = titel;
         this.comment = comment;
         this.status = SubmissionStatus.EINGERICHTET;

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class JuryRepository extends AbstractRepository<Jury, Long> {
-    protected JuryRepository(EntityManager entityManager, Class<Jury> entityClass) {
+    public JuryRepository(EntityManager entityManager, Class<Jury> entityClass) {
         super(entityManager, entityClass);
     }
 

@@ -10,7 +10,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Speaker {
     @Id
@@ -21,4 +20,9 @@ public class Speaker {
     @OneToMany(mappedBy = "speaker", cascade = CascadeType.ALL)
     List<SessionSpeaker> sessionSpeakers;
 
+    public Speaker(String name, String contact, List<SessionSpeaker> sessionSpeakers) {
+        this.name = name;
+        this.contact = contact;
+        this.sessionSpeakers = sessionSpeakers;
+    }
 }

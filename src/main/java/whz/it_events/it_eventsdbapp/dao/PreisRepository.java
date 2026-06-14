@@ -7,7 +7,7 @@ import whz.it_events.it_eventsdbapp.model.Preis;
 import java.util.List;
 
 public class PreisRepository extends AbstractRepository<Preis, Long> {
-    protected PreisRepository(EntityManager entityManager, Class<Preis> entityClass) {
+    public PreisRepository(EntityManager entityManager, Class<Preis> entityClass) {
         super(entityManager, entityClass);
     }
 

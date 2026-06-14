@@ -6,7 +6,7 @@ import whz.it_events.it_eventsdbapp.model.Location;
 
 public class LocationRepository extends AbstractRepository<Location, Long> {
 
-    protected LocationRepository(EntityManager entityManager, Class<Location> entityClass) {
+    public LocationRepository(EntityManager entityManager, Class<Location> entityClass) {
         super(entityManager, entityClass);
     }
 }

@@ -9,22 +9,24 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Jury {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
-
     @ManyToOne
     @JoinColumn(name = "track_id", referencedColumnName = "id")
     Track track;
-
     @Column(name = "prof_area")
     String profArea;
-
     String info;
+
+    public Jury(User user, Track track, String profArea, String info) {
+        this.user = user;
+        this.track = track;
+        this.profArea = profArea;
+        this.info = info;
+    }
 }

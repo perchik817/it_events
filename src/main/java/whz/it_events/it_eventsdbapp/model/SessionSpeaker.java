@@ -8,7 +8,6 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SessionSpeaker {
     @Id
@@ -22,4 +21,9 @@ public class SessionSpeaker {
     @JoinColumn(name = "session_id", referencedColumnName = "id")
     Session session;
 
+    public SessionSpeaker(String topic, Speaker speaker, Session session) {
+        this.topic = topic;
+        this.speaker = speaker;
+        this.session = session;
+    }
 }
