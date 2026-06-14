@@ -13,16 +13,18 @@ public class UserRepository extends AbstractRepository<User, Long> {
 
     public Optional<User> findByEmail(String email){
         return entityManager
-                .createQuery("select u from user u where u.email=:email", User.class)
+                .createQuery("select u from appUser u where u.email = :email", User.class)
                 .setParameter("email", email)
-                .getResultStream().findFirst();
+                .getResultStream()
+                .findFirst();
     }
 
     public boolean existsByEmail(String email){
         Long count = entityManager
-                .createQuery("select count(u) from user u where u.email=:email", Long.class)
+                .createQuery("select count(u) from appUser u where u.email = :email", Long.class)
                 .setParameter("email", email)
                 .getSingleResult();
+
         return count > 0;
     }
 }

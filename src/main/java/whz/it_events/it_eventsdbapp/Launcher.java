@@ -7,10 +7,10 @@ import javafx.application.Application;
 
 public class Launcher {
     public static void main(String[] args) {
-        if (args.length > 0 && "--smoke".equals(args[0])) {
-            ServiceSmokeCheck.main(args);
-            return;
-        }
+//        if (args.length > 0 && "--smoke".equals(args[0])) {
+//            ServiceSmokeCheck.main(args);
+//            return;
+//        }
         try {
             EntityManagerFactory emf =
                     Persistence.createEntityManagerFactory("itEventsPU");
@@ -26,6 +26,6 @@ public class Launcher {
             System.out.println("Connection failed!");
             e.printStackTrace();
         }
-        Application.launch(HelloApplication.class, args);
+        Application.launch(MainApp.class, args);
     }
 }

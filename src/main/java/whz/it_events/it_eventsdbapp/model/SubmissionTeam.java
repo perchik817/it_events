@@ -17,6 +17,7 @@ public class SubmissionTeam extends Submission{
     @JoinColumn(name = "team_id", referencedColumnName = "id")
     Team team;
 
+    public SubmissionTeam(){}
     public SubmissionTeam(String titel, String comment, ParticipationType participationType, String gitUrl,
                           String demoUrl, Team team) {
         super(titel, comment, participationType);

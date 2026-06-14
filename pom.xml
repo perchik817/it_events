@@ -99,6 +99,13 @@
             <version>1.5.6</version>
         </dependency>
 
+        <!-- шифрование пароля -->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -127,7 +134,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>whz.it_events.it_eventsdbapp/whz.it_events.it_eventsdbapp.HelloApplication
+                            <mainClass>whz.it_events.it_eventsdbapp/whz.it_events.it_eventsdbapp.MainApp
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

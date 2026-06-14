@@ -26,19 +26,23 @@
         <class>whz.it_events.it_eventsdbapp.model.Preis</class>
         <class>whz.it_events.it_eventsdbapp.model.PreisSponsor</class>
 <!--        я добавила-->
-        <class>whz.it_events.it_eventsdbapp.model.enums.SubmissionStatusConverter</class>
+        <class>whz.it_events.it_eventsdbapp.model.enums.converter.SubmissionStatusConverter</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver"
                       value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
             <!-- Замени на свои параметры -->
-            <property name="jakarta.persistence.jdbc.url"
-                      value="jdbc:sqlserver://localhost:1433;databaseName=itEventsDB;encrypt=true;trustServerCertificate=true"/>
-<!--            <property name="jakarta.persistence.jdbc.user"     value="it_events_admin"/>-->
-<!--            <property name="jakarta.persistence.jdbc.password" value="superDB"/>-->
+<!--            ты удалила мое подключение оказывается ;(-->
+<!--            <property name="jakarta.persistence.jdbc.url"-->
+<!--                      value="jdbc:sqlserver://localhost:1433;databaseName=itEventsDB;encrypt=true;trustServerCertificate=true"/>-->
 
-            <property name="jakarta.persistence.jdbc.user"     value="sa"/>
-            <property name="jakarta.persistence.jdbc.password" value="YourStrongPassword1"/>
+<!--            <property name="jakarta.persistence.jdbc.user"     value="sa"/>-->
+<!--            <property name="jakarta.persistence.jdbc.password" value="YourStrongPassword1"/>-->
+
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:sqlserver://LILEVIL:1433;databaseName=itEventsDB;encrypt=true;trustServerCertificate=true"/>
+            <property name="jakarta.persistence.jdbc.user"     value="it_events_admin"/>
+            <property name="jakarta.persistence.jdbc.password" value="superDB"/>
 
             <property name="hibernate.dialect"       value="org.hibernate.dialect.SQLServerDialect"/>
 <!--            <property name="hibernate.hbm2ddl.auto"  value="validate"/>-->

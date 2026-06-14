@@ -6,6 +6,8 @@ module whz.it_events.it_eventsdbapp {
     requires jakarta.persistence;
     requires org.jdbi.v3.core;
     requires org.hibernate.orm.core;
+    requires jbcrypt;
+//    requires whz.it_events.it_eventsdbapp;
 
     opens whz.it_events.it_eventsdbapp to javafx.fxml;
     opens whz.it_events.it_eventsdbapp.controller to javafx.fxml;
@@ -16,4 +18,5 @@ module whz.it_events.it_eventsdbapp {
     exports whz.it_events.it_eventsdbapp;
     exports whz.it_events.it_eventsdbapp.service;
     exports whz.it_events.it_eventsdbapp.service.dto;
+//    opens whz.it_events.it_eventsdbapp.model.enums.converter to javafx.base, org.hibernate.orm.core;
 }
