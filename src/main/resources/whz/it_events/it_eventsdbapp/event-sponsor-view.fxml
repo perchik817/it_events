@@ -28,7 +28,7 @@
         </VBox>
     </center>
     <right>
-        <VBox styleClass="card" spacing="12" prefWidth="300" BorderPane.alignment="TOP_CENTER">
+        <VBox fx:id="rightPanel" styleClass="card" spacing="12" prefWidth="300" BorderPane.alignment="TOP_CENTER">
             <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
             <Label text="EventSponsor Details" styleClass="title-label"/>
             <Label text="Event" styleClass="field-label"/>
@@ -38,9 +38,9 @@
             <Label text="Gebühr" styleClass="field-label"/>
             <TextField fx:id="feeField" promptText="z.B. 5000"/>
             <HBox spacing="10">
-                <Button text="Neu" styleClass="button-secondary" onAction="#onNew"/>
-                <Button text="Speichern" styleClass="button-primary" onAction="#onSave"/>
-                <Button text="Löschen" styleClass="button-danger" onAction="#onDelete"/>
+                <Button fx:id="newButton" text="Neu" styleClass="button-secondary" onAction="#onNew"/>
+                <Button fx:id="saveButton" text="Speichern" styleClass="button-primary" onAction="#onSave"/>
+                <Button fx:id="deleteButton" text="Löschen" styleClass="button-danger" onAction="#onDelete"/>
             </HBox>
             <Label fx:id="statusLabel" wrapText="true" styleClass="status-label"/>
         </VBox>

@@ -7,11 +7,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
+import javafx.scene.layout.VBox;
+import whz.it_events.it_eventsdbapp.SessionContext;
 import whz.it_events.it_eventsdbapp.config.JpaUtil;
 import whz.it_events.it_eventsdbapp.dao.MemberRepository;
 import whz.it_events.it_eventsdbapp.dao.TeamRepository;
@@ -31,6 +34,10 @@ public class MemberController {
     @FXML private ComboBox<User> userComboBox;
     @FXML private ComboBox<Team> teamComboBox;
     @FXML private TextField roleField;
+    @FXML private VBox rightPanel;
+    @FXML private Button newButton;
+    @FXML private Button saveButton;
+    @FXML private Button deleteButton;
     @FXML private Label statusLabel;
 
     private EntityManager entityManager;
@@ -76,6 +83,7 @@ public class MemberController {
         memberTable.getSelectionModel().selectedItemProperty().addListener(
                 (obs, o, n) -> showInForm(n));
         onNew();
+        applyRoleAccess();
         load();
     }
 
@@ -116,13 +124,27 @@ public class MemberController {
             m.setTeam(team);
             m.setTeamRole(roleField.getText());
         }
-        try { memberRepository.save(m); statusLabel.setText("Gespeichert."); load(); onNew(); }
+        try { memberRepository.save(m); statusLabel.setText("Gespeichert."); load(); onNew();
+        applyRoleAccess(); }
         catch (Exception e) { statusLabel.setText("Fehler: " + e.getMessage()); }
     }
 
     @FXML private void onDelete() {
         if (current == null) { statusLabel.setText("Bitte zuerst auswählen."); return; }
-        try { memberRepository.delete(current); statusLabel.setText("Gelöscht."); load(); onNew(); }
+        try { memberRepository.delete(current); statusLabel.setText("Gelöscht."); load(); onNew();
+        applyRoleAccess(); }
         catch (Exception e) { statusLabel.setText("Fehler: " + e.getMessage()); }
+    }
+
+    private void applyRoleAccess() {
+        boolean isAdmin = SessionContext.isAdmin();
+        // Only ADMIN sees the right form panel
+        if (rightPanel != null) {
+            rightPanel.setVisible(isAdmin);
+            rightPanel.setManaged(isAdmin);
+        }
+        newButton.setDisable(!isAdmin);
+        saveButton.setDisable(!isAdmin);
+        deleteButton.setDisable(!isAdmin);
     }
 }

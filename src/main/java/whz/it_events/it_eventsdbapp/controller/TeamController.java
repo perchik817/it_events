@@ -7,11 +7,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
+import javafx.scene.layout.VBox;
+import whz.it_events.it_eventsdbapp.SessionContext;
 import whz.it_events.it_eventsdbapp.config.JpaUtil;
 import whz.it_events.it_eventsdbapp.dao.TeamRepository;
 import whz.it_events.it_eventsdbapp.dao.TrackRepository;
@@ -31,6 +34,10 @@ public class TeamController {
 
     @FXML private TextField nameField;
     @FXML private ComboBox<Track> trackComboBox;
+    @FXML private VBox rightPanel;
+    @FXML private Button newButton;
+    @FXML private Button saveButton;
+    @FXML private Button deleteButton;
     @FXML private Label statusLabel;
 
     private EntityManager entityManager;
@@ -55,6 +62,7 @@ public class TeamController {
         );
 
         onNew();
+        applyRoleAccess();
     }
 
     private void setupTable() {
@@ -134,6 +142,7 @@ public class TeamController {
             statusLabel.setText("Gespeichert.");
             loadTeams();
             onNew();
+        applyRoleAccess();
         } catch (Exception e) {
             statusLabel.setText("Fehler: " + e.getMessage());
         }
@@ -149,8 +158,21 @@ public class TeamController {
             statusLabel.setText("Gelöscht.");
             loadTeams();
             onNew();
+        applyRoleAccess();
         } catch (Exception e) {
             statusLabel.setText("Fehler: " + e.getMessage());
         }
+    }
+
+    private void applyRoleAccess() {
+        boolean isAdmin = SessionContext.isAdmin();
+        // Only ADMIN sees the right form panel
+        if (rightPanel != null) {
+            rightPanel.setVisible(isAdmin);
+            rightPanel.setManaged(isAdmin);
+        }
+        newButton.setDisable(!isAdmin);
+        saveButton.setDisable(!isAdmin);
+        deleteButton.setDisable(!isAdmin);
     }
 }

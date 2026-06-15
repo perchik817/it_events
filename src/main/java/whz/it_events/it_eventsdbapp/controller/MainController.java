@@ -4,10 +4,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import whz.it_events.it_eventsdbapp.SessionContext;
+import whz.it_events.it_eventsdbapp.model.enums.Role;
 
 import java.io.IOException;
 
 public class MainController {
+
+    @FXML private TabPane mainTabPane;
 
     @FXML private Tab eventTab;
     @FXML private Tab trackTab;
@@ -50,6 +55,25 @@ public class MainController {
         loadInto(locationTab,      "/whz/it_events/it_eventsdbapp/location-view.fxml");
         loadInto(speakerTab,       "/whz/it_events/it_eventsdbapp/speaker-view.fxml");
         loadInto(userTab,          "/whz/it_events/it_eventsdbapp/user-view.fxml");
+
+        applyRoleVisibility();
+    }
+
+    private void applyRoleVisibility() {
+        Role role = SessionContext.getRole();
+
+        if (role == Role.USER) {
+            // USER sieht nicht: Participants, Visitors, Scores, Users
+            mainTabPane.getTabs().removeAll(
+                    participantTab, visitorTab, scoreTab, userTab
+            );
+        } else if (role == Role.JURY) {
+            // JURY sieht nicht: Participants, Visitors, Users
+            mainTabPane.getTabs().removeAll(
+                    participantTab, visitorTab, userTab
+            );
+        }
+        // ADMIN sieht alles
     }
 
     private void loadInto(Tab tab, String fxmlPath) {

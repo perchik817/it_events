@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
+import javafx.scene.layout.VBox;
+import whz.it_events.it_eventsdbapp.SessionContext;
 import whz.it_events.it_eventsdbapp.config.JpaUtil;
 import whz.it_events.it_eventsdbapp.dao.EventRepository;
 import whz.it_events.it_eventsdbapp.dao.EventSponsorRepository;
@@ -23,6 +25,10 @@ public class EventSponsorController {
     @FXML private ComboBox<Event> eventComboBox;
     @FXML private ComboBox<Sponsor> sponsorComboBox;
     @FXML private TextField feeField;
+    @FXML private VBox rightPanel;
+    @FXML private Button newButton;
+    @FXML private Button saveButton;
+    @FXML private Button deleteButton;
     @FXML private Label statusLabel;
 
     private EntityManager em;
@@ -56,7 +62,8 @@ public class EventSponsorController {
         });
 
         eventSponsorTable.getSelectionModel().selectedItemProperty().addListener((obs, o, n) -> showInForm(n));
-        onNew(); load();
+        onNew();
+        applyRoleAccess(); load();
     }
 
     private void load() { data.setAll(eventSponsorRepo.findAll()); }
@@ -70,12 +77,26 @@ public class EventSponsorController {
         if (event == null || sponsor == null) { statusLabel.setText("Event und Sponsor sind Pflichtfelder."); return; }
         EventSponsor es = (current != null) ? current : new EventSponsor(feeField.getText(), event, sponsor);
         if (current != null) { es.setEvent(event); es.setSponsor(sponsor); es.setFee(feeField.getText()); }
-        try { eventSponsorRepo.save(es); statusLabel.setText("Gespeichert."); load(); onNew(); }
+        try { eventSponsorRepo.save(es); statusLabel.setText("Gespeichert."); load(); onNew();
+        applyRoleAccess(); }
         catch (Exception e) { statusLabel.setText("Fehler: " + e.getMessage()); }
     }
     @FXML private void onDelete() {
         if (current == null) { statusLabel.setText("Bitte zuerst auswählen."); return; }
-        try { eventSponsorRepo.delete(current); statusLabel.setText("Gelöscht."); load(); onNew(); }
+        try { eventSponsorRepo.delete(current); statusLabel.setText("Gelöscht."); load(); onNew();
+        applyRoleAccess(); }
         catch (Exception e) { statusLabel.setText("Fehler: " + e.getMessage()); }
+    }
+
+    private void applyRoleAccess() {
+        boolean isAdmin = SessionContext.isAdmin();
+        // Only ADMIN sees the right form panel
+        if (rightPanel != null) {
+            rightPanel.setVisible(isAdmin);
+            rightPanel.setManaged(isAdmin);
+        }
+        newButton.setDisable(!isAdmin);
+        saveButton.setDisable(!isAdmin);
+        deleteButton.setDisable(!isAdmin);
     }
 }

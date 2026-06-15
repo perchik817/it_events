@@ -6,10 +6,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import whz.it_events.it_eventsdbapp.SessionContext;
 import whz.it_events.it_eventsdbapp.config.JpaUtil;
 import whz.it_events.it_eventsdbapp.dao.LocationRepository;
 import whz.it_events.it_eventsdbapp.model.Location;
@@ -25,6 +28,10 @@ public class LocationController {
     @FXML private TextField locationNameField;
     @FXML private TextField stadtField;
     @FXML private TextField addressField;
+    @FXML private VBox rightPanel;
+    @FXML private Button newButton;
+    @FXML private Button saveButton;
+    @FXML private Button deleteButton;
     @FXML private Label statusLabel;
 
     private EntityManager entityManager;
@@ -48,6 +55,7 @@ public class LocationController {
         );
 
         onNew();
+        applyRoleAccess();
     }
 
     private void setupTable() {
@@ -114,6 +122,7 @@ public class LocationController {
             statusLabel.setText("Gespeichert.");
             loadLocations();
             onNew();
+        applyRoleAccess();
         } catch (Exception e) {
             statusLabel.setText("Fehler beim Speichern: " + e.getMessage());
         }
@@ -132,8 +141,21 @@ public class LocationController {
             statusLabel.setText("Gelöscht.");
             loadLocations();
             onNew();
+        applyRoleAccess();
         } catch (Exception e) {
             statusLabel.setText("Fehler beim Löschen: " + e.getMessage());
         }
+    }
+
+    private void applyRoleAccess() {
+        boolean isAdmin = SessionContext.isAdmin();
+        // Only ADMIN sees the right form panel
+        if (rightPanel != null) {
+            rightPanel.setVisible(isAdmin);
+            rightPanel.setManaged(isAdmin);
+        }
+        newButton.setDisable(!isAdmin);
+        saveButton.setDisable(!isAdmin);
+        deleteButton.setDisable(!isAdmin);
     }
 }

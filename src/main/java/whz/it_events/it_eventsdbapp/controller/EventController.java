@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -14,6 +15,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
+import javafx.scene.layout.VBox;
+import whz.it_events.it_eventsdbapp.SessionContext;
 import whz.it_events.it_eventsdbapp.config.JpaUtil;
 import whz.it_events.it_eventsdbapp.dao.EventRepository;
 import whz.it_events.it_eventsdbapp.dao.LocationRepository;
@@ -43,13 +46,16 @@ public class EventController {
     @FXML private TextArea descriptionArea;
     @FXML private Label statusLabel;
 
+    @FXML private VBox rightPanel;
+    @FXML private Button newButton;
+    @FXML private Button saveButton;
+    @FXML private Button deleteButton;
+
     private EntityManager entityManager;
     private EventRepository eventRepository;
     private LocationRepository locationRepository;
 
     private final ObservableList<Event> eventData = FXCollections.observableArrayList();
-
-    // currently selected/edited event; null = "Neu" (creating a new one)
     private Event currentEvent;
 
     @FXML
@@ -68,56 +74,50 @@ public class EventController {
         );
 
         onNew();
+        applyRoleAccess();
+    }
+
+    private void applyRoleAccess() {
+        boolean isAdmin = SessionContext.isAdmin();
+        if (rightPanel != null) {
+            rightPanel.setVisible(isAdmin);
+            rightPanel.setManaged(isAdmin);
+        }
+        newButton.setDisable(!isAdmin);
+        saveButton.setDisable(!isAdmin);
+        deleteButton.setDisable(!isAdmin);
     }
 
     private void setupTable() {
-        colId.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(cellData.getValue().getId()));
-        colName.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getName()));
-        colDescription.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getDescription()));
-
-        colLocation.setCellValueFactory(cellData -> {
-            Location location = cellData.getValue().getLocation();
-            String name = (location != null) ? location.getLocationName() : "";
-            return new SimpleStringProperty(name);
+        colId.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getId()));
+        colName.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getName()));
+        colDescription.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDescription()));
+        colLocation.setCellValueFactory(c -> {
+            Location location = c.getValue().getLocation();
+            return new SimpleStringProperty(location != null ? location.getLocationName() : "");
         });
-
-        colStartDate.setCellValueFactory(cellData -> {
-            LocalDateTime date = cellData.getValue().getStartDate();
+        colStartDate.setCellValueFactory(c -> {
+            LocalDateTime date = c.getValue().getStartDate();
             return new SimpleStringProperty(date != null ? date.toLocalDate().toString() : "");
         });
-
-        colEndDate.setCellValueFactory(cellData -> {
-            LocalDateTime date = cellData.getValue().getEndDate();
+        colEndDate.setCellValueFactory(c -> {
+            LocalDateTime date = c.getValue().getEndDate();
             return new SimpleStringProperty(date != null ? date.toLocalDate().toString() : "");
         });
-
-        colStatus.setCellValueFactory(cellData -> {
-            Status status = cellData.getValue().getStatus();
+        colStatus.setCellValueFactory(c -> {
+            Status status = c.getValue().getStatus();
             return new SimpleStringProperty(status != null ? status.toString() : "");
         });
-
         eventTable.setItems(eventData);
     }
 
     private void setupLocationComboBox() {
-        ObservableList<Location> locations = FXCollections.observableArrayList(locationRepository.findAll());
-        locationComboBox.setItems(locations);
-
+        locationComboBox.setItems(FXCollections.observableArrayList(locationRepository.findAll()));
         locationComboBox.setConverter(new StringConverter<Location>() {
-            @Override
-            public String toString(Location location) {
-                return (location != null) ? location.getLocationName() : "";
-            }
-
-            @Override
-            public Location fromString(String string) {
+            @Override public String toString(Location l) { return l != null ? l.getLocationName() : ""; }
+            @Override public Location fromString(String s) {
                 return locationComboBox.getItems().stream()
-                        .filter(l -> l.getLocationName().equals(string))
-                        .findFirst()
-                        .orElse(null);
+                        .filter(l -> l.getLocationName().equals(s)).findFirst().orElse(null);
             }
         });
     }
@@ -130,24 +130,17 @@ public class EventController {
         eventData.setAll(eventRepository.findAllOrderedByStartDate());
     }
 
-    /** Fills the form with the data of the selected event. */
     private void showEventInForm(Event event) {
         currentEvent = event;
-        if (event == null) {
-            clearForm();
-            return;
-        }
+        if (event == null) { clearForm(); return; }
         nameField.setText(event.getName());
         descriptionArea.setText(event.getDescription());
         locationComboBox.setValue(event.getLocation());
         statusComboBox.setValue(event.getStatus());
-
         LocalDateTime start = event.getStartDate();
         startDatePicker.setValue(start != null ? start.toLocalDate() : null);
-
         LocalDateTime end = event.getEndDate();
         endDatePicker.setValue(end != null ? end.toLocalDate() : null);
-
         statusLabel.setText("");
     }
 
@@ -161,35 +154,20 @@ public class EventController {
         statusLabel.setText("");
     }
 
-    /** "Neu" button: clears the form so a new Event can be created. */
-    @FXML
-    private void onNew() {
+    @FXML private void onNew() {
         currentEvent = null;
         eventTable.getSelectionModel().clearSelection();
         clearForm();
     }
 
-    /** "Speichern" button: creates a new Event or updates the selected one. */
-    @FXML
-    private void onSave() {
+    @FXML private void onSave() {
         String name = nameField.getText();
-        if (name == null || name.isBlank()) {
-            statusLabel.setText("Name darf nicht leer sein.");
-            return;
-        }
-
+        if (name == null || name.isBlank()) { statusLabel.setText("Name darf nicht leer sein."); return; }
         LocalDate startDate = startDatePicker.getValue();
         LocalDate endDate = endDatePicker.getValue();
-        if (startDate == null || endDate == null) {
-            statusLabel.setText("Bitte Start- und Enddatum auswählen.");
-            return;
-        }
-
+        if (startDate == null || endDate == null) { statusLabel.setText("Bitte Start- und Enddatum auswählen."); return; }
         Status status = statusComboBox.getValue();
-        if (status == null) {
-            statusLabel.setText("Bitte einen Status auswählen.");
-            return;
-        }
+        if (status == null) { statusLabel.setText("Bitte einen Status auswählen."); return; }
 
         Event event = (currentEvent != null) ? currentEvent : new Event();
         event.setName(name);
@@ -209,14 +187,11 @@ public class EventController {
         }
     }
 
-    /** "Löschen" button: deletes the selected Event. */
-    @FXML
-    private void onDelete() {
+    @FXML private void onDelete() {
         if (currentEvent == null || currentEvent.getId() == null) {
             statusLabel.setText("Bitte zuerst ein Event auswählen.");
             return;
         }
-
         try {
             eventRepository.delete(currentEvent);
             statusLabel.setText("Gelöscht.");

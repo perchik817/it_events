@@ -4,10 +4,13 @@ import jakarta.persistence.EntityManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import whz.it_events.it_eventsdbapp.SessionContext;
 import whz.it_events.it_eventsdbapp.config.JpaUtil;
 import whz.it_events.it_eventsdbapp.dao.SponsorRepository;
 import whz.it_events.it_eventsdbapp.model.Sponsor;
@@ -23,6 +26,10 @@ public class SponsorController {
     @FXML private TextField nameField;
     @FXML private TextField contactField;
     @FXML private TextField photoUrlField;
+    @FXML private VBox rightPanel;
+    @FXML private Button newButton;
+    @FXML private Button saveButton;
+    @FXML private Button deleteButton;
     @FXML private Label statusLabel;
 
     private EntityManager entityManager;
@@ -46,6 +53,7 @@ public class SponsorController {
         );
 
         onNew();
+        applyRoleAccess();
     }
 
     private void setupTable() {
@@ -112,6 +120,7 @@ public class SponsorController {
             statusLabel.setText("Gespeichert.");
             loadSponsors();
             onNew();
+        applyRoleAccess();
         } catch (Exception e) {
             statusLabel.setText("Fehler beim Speichern: " + e.getMessage());
         }
@@ -130,8 +139,21 @@ public class SponsorController {
             statusLabel.setText("Gelöscht.");
             loadSponsors();
             onNew();
+        applyRoleAccess();
         } catch (Exception e) {
             statusLabel.setText("Fehler beim Löschen: " + e.getMessage());
         }
+    }
+
+    private void applyRoleAccess() {
+        boolean isAdmin = SessionContext.isAdmin();
+        // Only ADMIN sees the right form panel
+        if (rightPanel != null) {
+            rightPanel.setVisible(isAdmin);
+            rightPanel.setManaged(isAdmin);
+        }
+        newButton.setDisable(!isAdmin);
+        saveButton.setDisable(!isAdmin);
+        deleteButton.setDisable(!isAdmin);
     }
 }

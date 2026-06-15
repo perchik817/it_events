@@ -48,9 +48,9 @@
             <Label text="Kommentar" styleClass="field-label"/>
             <TextArea fx:id="commentArea" prefRowCount="3" wrapText="true"/>
             <HBox spacing="10">
-                <Button text="Neu" styleClass="button-secondary" onAction="#onNew"/>
-                <Button text="Speichern" styleClass="button-primary" onAction="#onSave"/>
-                <Button text="Löschen" styleClass="button-danger" onAction="#onDelete"/>
+                <Button fx:id="newButton" text="Neu" styleClass="button-secondary" onAction="#onNew"/>
+                <Button fx:id="saveButton" text="Speichern" styleClass="button-primary" onAction="#onSave"/>
+                <Button fx:id="deleteButton" text="Löschen" styleClass="button-danger" onAction="#onDelete"/>
             </HBox>
             <Label fx:id="statusLabel" wrapText="true" styleClass="status-label"/>
         </VBox>

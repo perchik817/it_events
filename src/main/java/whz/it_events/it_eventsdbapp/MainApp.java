@@ -14,7 +14,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/whz/it_events/it_eventsdbapp/main-view.fxml")
+                getClass().getResource("/whz/it_events/it_eventsdbapp/login-view.fxml")
         );
         Parent root = loader.load();
 
@@ -23,7 +23,8 @@ public class MainApp extends Application {
                 getClass().getResource("/whz/it_events/it_eventsdbapp/styles.css").toExternalForm()
         );
 
-        stage.setTitle("IT Events - Verwaltung");
+        stage.setTitle("IT Events - Anmeldung");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }

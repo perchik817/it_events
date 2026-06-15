@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
+import javafx.scene.layout.VBox;
+import whz.it_events.it_eventsdbapp.SessionContext;
 import whz.it_events.it_eventsdbapp.config.JpaUtil;
 import whz.it_events.it_eventsdbapp.dao.EventRepository;
 import whz.it_events.it_eventsdbapp.dao.TrackRepository;
@@ -29,6 +31,10 @@ public class TrackController {
     @FXML private ComboBox<Event> eventComboBox;
     @FXML private DatePicker deadlineDatePicker;
     @FXML private TextArea descriptionArea;
+    @FXML private VBox rightPanel;
+    @FXML private Button newButton;
+    @FXML private Button saveButton;
+    @FXML private Button deleteButton;
     @FXML private Label statusLabel;
 
     private EntityManager entityManager;
@@ -55,6 +61,7 @@ public class TrackController {
         );
 
         onNew();
+        applyRoleAccess();
     }
 
     private void setupTable() {
@@ -167,6 +174,7 @@ public class TrackController {
             statusLabel.setText("Gespeichert.");
             loadTracks();
             onNew();
+        applyRoleAccess();
         } catch (Exception e) {
             statusLabel.setText("Fehler beim Speichern: " + e.getMessage());
         }
@@ -185,8 +193,21 @@ public class TrackController {
             statusLabel.setText("Gelöscht.");
             loadTracks();
             onNew();
+        applyRoleAccess();
         } catch (Exception e) {
             statusLabel.setText("Fehler beim Löschen: " + e.getMessage());
         }
+    }
+
+    private void applyRoleAccess() {
+        boolean isAdmin = SessionContext.isAdmin();
+        // Only ADMIN sees the right form panel
+        if (rightPanel != null) {
+            rightPanel.setVisible(isAdmin);
+            rightPanel.setManaged(isAdmin);
+        }
+        newButton.setDisable(!isAdmin);
+        saveButton.setDisable(!isAdmin);
+        deleteButton.setDisable(!isAdmin);
     }
 }

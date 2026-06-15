@@ -33,7 +33,7 @@
     </center>
 
     <right>
-        <VBox styleClass="card" spacing="12" prefWidth="300" BorderPane.alignment="TOP_CENTER">
+        <VBox fx:id="rightPanel" styleClass="card" spacing="12" prefWidth="300" BorderPane.alignment="TOP_CENTER">
             <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
 
             <Label text="Team Details" styleClass="title-label"/>

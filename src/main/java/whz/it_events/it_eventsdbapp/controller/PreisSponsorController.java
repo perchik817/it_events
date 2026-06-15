@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
+import javafx.scene.layout.VBox;
+import whz.it_events.it_eventsdbapp.SessionContext;
 import whz.it_events.it_eventsdbapp.config.JpaUtil;
 import whz.it_events.it_eventsdbapp.dao.PreisRepository;
 import whz.it_events.it_eventsdbapp.dao.PreisSponsorRepository;
@@ -24,6 +26,10 @@ public class PreisSponsorController {
     @FXML private ComboBox<Track> trackComboBox;
     @FXML private ComboBox<Preis> preisComboBox;
     @FXML private ComboBox<Sponsor> sponsorComboBox;
+    @FXML private VBox rightPanel;
+    @FXML private Button newButton;
+    @FXML private Button saveButton;
+    @FXML private Button deleteButton;
     @FXML private Label statusLabel;
 
     private EntityManager em;
@@ -64,7 +70,8 @@ public class PreisSponsorController {
         });
 
         preisSponsorTable.getSelectionModel().selectedItemProperty().addListener((obs, o, n) -> showInForm(n));
-        onNew(); load();
+        onNew();
+        applyRoleAccess(); load();
     }
 
     private void load() { data.setAll(preisSponsorRepo.findAll()); }
@@ -79,12 +86,26 @@ public class PreisSponsorController {
         if (track == null || preis == null || sponsor == null) { statusLabel.setText("Alle Felder sind Pflichtfelder."); return; }
         PreisSponsor ps = (current != null) ? current : new PreisSponsor(track, preis, sponsor);
         if (current != null) { ps.setTrack(track); ps.setPreis(preis); ps.setSponsor(sponsor); }
-        try { preisSponsorRepo.save(ps); statusLabel.setText("Gespeichert."); load(); onNew(); }
+        try { preisSponsorRepo.save(ps); statusLabel.setText("Gespeichert."); load(); onNew();
+        applyRoleAccess(); }
         catch (Exception e) { statusLabel.setText("Fehler: " + e.getMessage()); }
     }
     @FXML private void onDelete() {
         if (current == null) { statusLabel.setText("Bitte zuerst auswählen."); return; }
-        try { preisSponsorRepo.delete(current); statusLabel.setText("Gelöscht."); load(); onNew(); }
+        try { preisSponsorRepo.delete(current); statusLabel.setText("Gelöscht."); load(); onNew();
+        applyRoleAccess(); }
         catch (Exception e) { statusLabel.setText("Fehler: " + e.getMessage()); }
+    }
+
+    private void applyRoleAccess() {
+        boolean isAdmin = SessionContext.isAdmin();
+        // Only ADMIN sees the right form panel
+        if (rightPanel != null) {
+            rightPanel.setVisible(isAdmin);
+            rightPanel.setManaged(isAdmin);
+        }
+        newButton.setDisable(!isAdmin);
+        saveButton.setDisable(!isAdmin);
+        deleteButton.setDisable(!isAdmin);
     }
 }

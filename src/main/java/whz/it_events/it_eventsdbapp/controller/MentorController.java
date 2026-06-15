@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
+import javafx.scene.layout.VBox;
+import whz.it_events.it_eventsdbapp.SessionContext;
 import whz.it_events.it_eventsdbapp.config.JpaUtil;
 import whz.it_events.it_eventsdbapp.dao.MentorRepository;
 import whz.it_events.it_eventsdbapp.dao.TrackRepository;
@@ -23,6 +25,10 @@ public class MentorController {
     @FXML private ComboBox<User> userComboBox;
     @FXML private ComboBox<Track> trackComboBox;
     @FXML private TextField profAreaField;
+    @FXML private VBox rightPanel;
+    @FXML private Button newButton;
+    @FXML private Button saveButton;
+    @FXML private Button deleteButton;
     @FXML private Label statusLabel;
 
     private EntityManager em;
@@ -56,7 +62,8 @@ public class MentorController {
         });
 
         mentorTable.getSelectionModel().selectedItemProperty().addListener((obs, o, n) -> showInForm(n));
-        onNew(); load();
+        onNew();
+        applyRoleAccess(); load();
     }
 
     private void load() { data.setAll(mentorRepo.findAll()); }
@@ -69,12 +76,26 @@ public class MentorController {
         if (user == null) { statusLabel.setText("Bitte einen User auswählen."); return; }
         Mentor m = (current != null) ? current : new Mentor(user, trackComboBox.getValue(), profAreaField.getText());
         if (current != null) { m.setUser(user); m.setTrack(trackComboBox.getValue()); m.setProfArea(profAreaField.getText()); }
-        try { mentorRepo.save(m); statusLabel.setText("Gespeichert."); load(); onNew(); }
+        try { mentorRepo.save(m); statusLabel.setText("Gespeichert."); load(); onNew();
+        applyRoleAccess(); }
         catch (Exception e) { statusLabel.setText("Fehler: " + e.getMessage()); }
     }
     @FXML private void onDelete() {
         if (current == null) { statusLabel.setText("Bitte zuerst auswählen."); return; }
-        try { mentorRepo.delete(current); statusLabel.setText("Gelöscht."); load(); onNew(); }
+        try { mentorRepo.delete(current); statusLabel.setText("Gelöscht."); load(); onNew();
+        applyRoleAccess(); }
         catch (Exception e) { statusLabel.setText("Fehler: " + e.getMessage()); }
+    }
+
+    private void applyRoleAccess() {
+        boolean isAdmin = SessionContext.isAdmin();
+        // Only ADMIN sees the right form panel
+        if (rightPanel != null) {
+            rightPanel.setVisible(isAdmin);
+            rightPanel.setManaged(isAdmin);
+        }
+        newButton.setDisable(!isAdmin);
+        saveButton.setDisable(!isAdmin);
+        deleteButton.setDisable(!isAdmin);
     }
 }

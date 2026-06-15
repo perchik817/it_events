@@ -7,10 +7,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.util.StringConverter;
+import javafx.scene.layout.VBox;
+import whz.it_events.it_eventsdbapp.SessionContext;
 import whz.it_events.it_eventsdbapp.config.JpaUtil;
 import whz.it_events.it_eventsdbapp.dao.ParticipantRepository;
 import whz.it_events.it_eventsdbapp.dao.SubmissionRepository;
@@ -32,6 +35,10 @@ public class ParticipantController {
     @FXML private ComboBox<User> userComboBox;
     @FXML private ComboBox<Track> trackComboBox;
     @FXML private ComboBox<Submission> submissionComboBox;
+    @FXML private VBox rightPanel;
+    @FXML private Button newButton;
+    @FXML private Button saveButton;
+    @FXML private Button deleteButton;
     @FXML private Label statusLabel;
 
     private EntityManager entityManager;
@@ -75,6 +82,7 @@ public class ParticipantController {
         participantTable.getSelectionModel().selectedItemProperty().addListener(
                 (obs, o, n) -> showInForm(n));
         onNew();
+        applyRoleAccess();
         load();
     }
 
@@ -128,13 +136,27 @@ public class ParticipantController {
             p.setTrack(track);
             p.setSubmission(submissionComboBox.getValue());
         }
-        try { participantRepository.save(p); statusLabel.setText("Gespeichert."); load(); onNew(); }
+        try { participantRepository.save(p); statusLabel.setText("Gespeichert."); load(); onNew();
+        applyRoleAccess(); }
         catch (Exception e) { statusLabel.setText("Fehler: " + e.getMessage()); }
     }
 
     @FXML private void onDelete() {
         if (current == null) { statusLabel.setText("Bitte zuerst auswählen."); return; }
-        try { participantRepository.delete(current); statusLabel.setText("Gelöscht."); load(); onNew(); }
+        try { participantRepository.delete(current); statusLabel.setText("Gelöscht."); load(); onNew();
+        applyRoleAccess(); }
         catch (Exception e) { statusLabel.setText("Fehler: " + e.getMessage()); }
+    }
+
+    private void applyRoleAccess() {
+        boolean isAdmin = SessionContext.isAdmin();
+        // Only ADMIN sees the right form panel
+        if (rightPanel != null) {
+            rightPanel.setVisible(isAdmin);
+            rightPanel.setManaged(isAdmin);
+        }
+        newButton.setDisable(!isAdmin);
+        saveButton.setDisable(!isAdmin);
+        deleteButton.setDisable(!isAdmin);
     }
 }
