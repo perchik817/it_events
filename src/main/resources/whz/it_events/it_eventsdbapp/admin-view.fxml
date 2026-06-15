@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="whz.it_events.it_eventsdbapp.controller.AdminController"
+            prefWidth="1280" prefHeight="800"
+            style="-fx-background-color: #F4F6FB;">
+
+    <left>
+        <VBox prefWidth="200" prefHeight="800"
+              style="-fx-background-color: #2E3142;">
+
+            <!-- Logo -->
+            <VBox alignment="CENTER" style="-fx-padding: 28 20 20 20;">
+                <Label text="IT Events"
+                       style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="Admin Panel"
+                       style="-fx-font-size: 11px; -fx-text-fill: #5B6EF5;"/>
+            </VBox>
+
+            <!-- Admin Profile -->
+            <VBox style="-fx-background-color: rgba(255,255,255,0.06); -fx-background-radius: 12; -fx-padding: 14;">
+                <VBox.margin><Insets left="12" right="12" bottom="12"/></VBox.margin>
+                <Label fx:id="adminNameLabel"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="ADMIN"
+                       style="-fx-font-size: 10px; -fx-text-fill: #5B6EF5; -fx-font-weight: bold;"/>
+                <Label fx:id="adminEmailLabel"
+                       style="-fx-font-size: 10px; -fx-text-fill: #8A8FA3;"/>
+            </VBox>
+
+            <Separator style="-fx-background-color: rgba(255,255,255,0.08);"/>
+
+            <!-- Scrollable Nav -->
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                        style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent; -fx-padding: 0;">
+                <VBox spacing="2" style="-fx-background-color: #2E3142; -fx-padding: 8 10 8 10;">
+
+                    <Label text="EVENTS"
+                           style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: #8A8FA3; -fx-padding: 8 8 4 8;"/>
+                    <Button fx:id="btnEvents" text="🎯  Events" maxWidth="Infinity" onAction="#selectEvents"
+                            style="-fx-background-color: #5B6EF5; -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-font-weight: bold; -fx-cursor: hand;"/>
+                    <Button fx:id="btnTracks" text="🔀  Tracks" maxWidth="Infinity" onAction="#selectTracks"
+                            style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
+                    <Button fx:id="btnSessions" text="📅  Sessions" maxWidth="Infinity" onAction="#selectSessions"
+                            style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
+                    <Button fx:id="btnLocations" text="📍  Locations" maxWidth="Infinity" onAction="#selectLocations"
+                            style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
+
+                    <Label text="TEILNEHMER"
+                           style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: #8A8FA3; -fx-padding: 8 8 4 8;"/>
+                    <Button fx:id="btnUsers" text="👤  Users" maxWidth="Infinity" onAction="#selectUsers"
+                            style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
+                    <Button fx:id="btnTeams" text="👥  Teams" maxWidth="Infinity" onAction="#selectTeams"
+                            style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
+                    <Button fx:id="btnMembers" text="🧑‍🤝‍🧑  Members" maxWidth="Infinity" onAction="#selectMembers"
+                            style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
+                    <Button fx:id="btnParticipants" text="🎫  Participants" maxWidth="Infinity" onAction="#selectParticipants"
+                            style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
+
+                    <Label text="BEWERTUNG"
+                           style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: #8A8FA3; -fx-padding: 8 8 4 8;"/>
+                    <Button fx:id="btnSubmissions" text="📝  Submissions" maxWidth="Infinity" onAction="#selectSubmissions"
+                            style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
+                    <Button fx:id="btnScores" text="⭐  Scores" maxWidth="Infinity" onAction="#selectScores"
+                            style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
+                    <Button fx:id="btnPreise" text="🏆  Preise" maxWidth="Infinity" onAction="#selectPreise"
+                            style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
+                    <Button fx:id="btnJury" text="⚖️  Jury" maxWidth="Infinity" onAction="#selectJury"
+                            style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
+
+                    <Label text="SPONSOREN"
+                           style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: #8A8FA3; -fx-padding: 8 8 4 8;"/>
+                    <Button fx:id="btnSponsors" text="💼  Sponsoren" maxWidth="Infinity" onAction="#selectSponsors"
+                            style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
+                    <Button fx:id="btnEventSponsors" text="🤝  EventSponsoren" maxWidth="Infinity" onAction="#selectEventSponsors"
+                            style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
+                    <Button fx:id="btnPreisSponsors" text="🎁  PreisSponsoren" maxWidth="Infinity" onAction="#selectPreisSponsors"
+                            style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
+
+                    <Label text="WEITERE"
+                           style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: #8A8FA3; -fx-padding: 8 8 4 8;"/>
+                    <Button fx:id="btnSpeakers" text="🎤  Speakers" maxWidth="Infinity" onAction="#selectSpeakers"
+                            style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
+                    <Button fx:id="btnMentors" text="🧑‍🏫  Mentoren" maxWidth="Infinity" onAction="#selectMentors"
+                            style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
+                    <Button fx:id="btnOrganisators" text="🗂️  Organisatoren" maxWidth="Infinity" onAction="#selectOrganisators"
+                            style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
+                    <Button fx:id="btnVisitors" text="👀  Visitors" maxWidth="Infinity" onAction="#selectVisitors"
+                            style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
+
+                    <Separator style="-fx-background-color: rgba(255,255,255,0.08); -fx-padding: 4 0;"/>
+                    <Button text="← Abmelden" maxWidth="Infinity" onAction="#onLogout"
+                            style="-fx-background-color: transparent; -fx-text-fill: #E2574C; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand; -fx-font-weight: bold;"/>
+                </VBox>
+            </ScrollPane>
+        </VBox>
+    </left>
+
+    <center>
+        <BorderPane fx:id="contentPane" style="-fx-padding: 0;"/>
+    </center>
+
+</BorderPane>

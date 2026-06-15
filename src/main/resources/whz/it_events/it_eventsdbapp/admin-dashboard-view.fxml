@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="whz.it_events.it_eventsdbapp.controller.AdminDashboardController"
+            prefWidth="1280" prefHeight="800"
+            style="-fx-background-color: #F4F6FB;">
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox prefWidth="220"
+              style="-fx-background-color: #2E3142; -fx-min-height: 800;">
+
+            <!-- Logo -->
+            <VBox alignment="CENTER" style="-fx-padding: 28 20 20 20;">
+                <Label text="IT Events"
+                       style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="Admin Panel"
+                       style="-fx-font-size: 11px; -fx-text-fill: #5B6EF5;"/>
+            </VBox>
+
+            <!-- Admin Profile -->
+            <VBox style="-fx-background-color: rgba(255,255,255,0.06); -fx-background-radius: 12; -fx-padding: 14;">
+                <VBox.margin><Insets left="12" right="12" bottom="16"/></VBox.margin>
+                <Label fx:id="adminNameLabel"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="ADMIN"
+                       style="-fx-font-size: 10px; -fx-text-fill: #5B6EF5; -fx-font-weight: bold;"/>
+                <Label fx:id="adminEmailLabel"
+                       style="-fx-font-size: 10px; -fx-text-fill: #8A8FA3;"/>
+            </VBox>
+
+            <Separator style="-fx-background-color: rgba(255,255,255,0.08); -fx-padding: 0 0 8 0;"/>
+
+            <!-- Nav -->
+            <VBox spacing="2" style="-fx-padding: 12 10 12 10;">
+                <Label text="NAVIGATION"
+                       style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: #8A8FA3; -fx-padding: 8 8 4 8;"/>
+                <Button fx:id="btnOverview" text="📊  Übersicht" maxWidth="Infinity"
+                        onAction="#showOverview"
+                        style="-fx-background-color: #5B6EF5; -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 11 14; -fx-alignment: CENTER-LEFT; -fx-font-weight: bold; -fx-cursor: hand; -fx-font-size: 13px;"/>
+                <Button fx:id="btnEvents" text="🎯  Events" maxWidth="Infinity"
+                        onAction="#showAdminEvents"
+                        style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 11 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand; -fx-font-size: 13px;"/>
+                <Button fx:id="btnUsers" text="👤  Users" maxWidth="Infinity"
+                        onAction="#showAdminUsers"
+                        style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 11 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand; -fx-font-size: 13px;"/>
+                <Button fx:id="btnAll" text="⚙️  Verwaltung" maxWidth="Infinity"
+                        onAction="#openFullAdmin"
+                        style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 11 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand; -fx-font-size: 13px;"/>
+            </VBox>
+
+            <VBox VBox.vgrow="ALWAYS"/>
+
+            <!-- Logout -->
+            <VBox style="-fx-padding: 12 10;">
+                <Separator style="-fx-background-color: rgba(255,255,255,0.08);"/>
+                <Button text="← Abmelden" maxWidth="Infinity"
+                        onAction="#onLogout"
+                        style="-fx-background-color: transparent; -fx-text-fill: #E2574C; -fx-background-radius: 10; -fx-padding: 11 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand; -fx-font-weight: bold;"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent;">
+            <VBox fx:id="mainContent" spacing="24" style="-fx-padding: 28;">
+
+                <!-- Page Title -->
+                <Label fx:id="pageTitle" text="Übersicht"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2E3142;"/>
+
+                <!-- Stats Cards -->
+                <HBox fx:id="statsRow" spacing="16">
+                    <VBox fx:id="statEvents" styleClass="stat-card"
+                          style="-fx-background-color: white; -fx-background-radius: 14; -fx-effect: dropshadow(gaussian, rgba(46,49,66,0.07), 10, 0, 0, 3); -fx-padding: 20; -fx-min-width: 160;">
+                        <Label text="🎯" style="-fx-font-size: 24px;"/>
+                        <Label fx:id="statEventsNum" text="0"
+                               style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #5B6EF5;"/>
+                        <Label text="Events"
+                               style="-fx-font-size: 12px; -fx-text-fill: #8A8FA3;"/>
+                    </VBox>
+                    <VBox styleClass="stat-card"
+                          style="-fx-background-color: white; -fx-background-radius: 14; -fx-effect: dropshadow(gaussian, rgba(46,49,66,0.07), 10, 0, 0, 3); -fx-padding: 20; -fx-min-width: 160;">
+                        <Label text="👤" style="-fx-font-size: 24px;"/>
+                        <Label fx:id="statUsersNum" text="0"
+                               style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #10B981;"/>
+                        <Label text="Users"
+                               style="-fx-font-size: 12px; -fx-text-fill: #8A8FA3;"/>
+                    </VBox>
+                    <VBox styleClass="stat-card"
+                          style="-fx-background-color: white; -fx-background-radius: 14; -fx-effect: dropshadow(gaussian, rgba(46,49,66,0.07), 10, 0, 0, 3); -fx-padding: 20; -fx-min-width: 160;">
+                        <Label text="👥" style="-fx-font-size: 24px;"/>
+                        <Label fx:id="statTeamsNum" text="0"
+                               style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #F59E0B;"/>
+                        <Label text="Teams"
+                               style="-fx-font-size: 12px; -fx-text-fill: #8A8FA3;"/>
+                    </VBox>
+                    <VBox styleClass="stat-card"
+                          style="-fx-background-color: white; -fx-background-radius: 14; -fx-effect: dropshadow(gaussian, rgba(46,49,66,0.07), 10, 0, 0, 3); -fx-padding: 20; -fx-min-width: 160;">
+                        <Label text="📝" style="-fx-font-size: 24px;"/>
+                        <Label fx:id="statSubmissionsNum" text="0"
+                               style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #E2574C;"/>
+                        <Label text="Submissions"
+                               style="-fx-font-size: 12px; -fx-text-fill: #8A8FA3;"/>
+                    </VBox>
+                    <VBox styleClass="stat-card"
+                          style="-fx-background-color: white; -fx-background-radius: 14; -fx-effect: dropshadow(gaussian, rgba(46,49,66,0.07), 10, 0, 0, 3); -fx-padding: 20; -fx-min-width: 160;">
+                        <Label text="⭐" style="-fx-font-size: 24px;"/>
+                        <Label fx:id="statScoresNum" text="0"
+                               style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #8B5CF6;"/>
+                        <Label text="Scores"
+                               style="-fx-font-size: 12px; -fx-text-fill: #8A8FA3;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Recent Events + Quick Actions -->
+                <HBox spacing="16" VBox.vgrow="ALWAYS">
+                    <!-- Recent Events -->
+                    <VBox spacing="12" HBox.hgrow="ALWAYS"
+                          style="-fx-background-color: white; -fx-background-radius: 14; -fx-effect: dropshadow(gaussian, rgba(46,49,66,0.07), 10, 0, 0, 3); -fx-padding: 20;">
+                        <Label text="Letzte Events"
+                               style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #2E3142;"/>
+                        <Separator/>
+                        <VBox fx:id="recentEventsList" spacing="8"/>
+                    </VBox>
+
+                    <!-- Quick Actions -->
+                    <VBox spacing="12" prefWidth="260"
+                          style="-fx-background-color: white; -fx-background-radius: 14; -fx-effect: dropshadow(gaussian, rgba(46,49,66,0.07), 10, 0, 0, 3); -fx-padding: 20;">
+                        <Label text="Schnellzugriff"
+                               style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #2E3142;"/>
+                        <Separator/>
+                        <Button text="⚙️  Vollständige Verwaltung öffnen"
+                                maxWidth="Infinity" onAction="#openFullAdmin"
+                                style="-fx-background-color: #5B6EF5; -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 12; -fx-font-weight: bold; -fx-cursor: hand;"/>
+                        <Button text="👤  Benutzer verwalten"
+                                maxWidth="Infinity" onAction="#showAdminUsers"
+                                style="-fx-background-color: #F4F6FB; -fx-text-fill: #2E3142; -fx-background-radius: 10; -fx-padding: 12; -fx-cursor: hand;"/>
+                        <Button text="🎯  Events verwalten"
+                                maxWidth="Infinity" onAction="#showAdminEvents"
+                                style="-fx-background-color: #F4F6FB; -fx-text-fill: #2E3142; -fx-background-radius: 10; -fx-padding: 12; -fx-cursor: hand;"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
