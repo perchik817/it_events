@@ -7,6 +7,7 @@ module whz.it_events.it_eventsdbapp {
     requires org.jdbi.v3.core;
     requires org.hibernate.orm.core;
     requires jbcrypt;
+    requires java.xml;
 //    requires whz.it_events.it_eventsdbapp;
 
     opens whz.it_events.it_eventsdbapp to javafx.fxml;

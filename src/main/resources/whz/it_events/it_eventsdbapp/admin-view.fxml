@@ -97,6 +97,8 @@
                             style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
 
                     <Separator style="-fx-background-color: rgba(255,255,255,0.08); -fx-padding: 4 0;"/>
+                    <Button fx:id="btnXmlExport" text="📤  XML Export" maxWidth="Infinity" onAction="#onXmlExport"
+                            style="-fx-background-color: transparent; -fx-text-fill: #8A8FA3; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand;"/>
                     <Button text="← Abmelden" maxWidth="Infinity" onAction="#onLogout"
                             style="-fx-background-color: transparent; -fx-text-fill: #E2574C; -fx-background-radius: 10; -fx-padding: 10 14; -fx-alignment: CENTER-LEFT; -fx-cursor: hand; -fx-font-weight: bold;"/>
                 </VBox>
